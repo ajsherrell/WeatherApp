@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ajsherrell.weatherapp.adapter.WeatherAdapter
 import com.ajsherrell.weatherapp.databinding.WeatherListFragmentBinding
 import com.ajsherrell.weatherapp.model.List
@@ -19,7 +20,7 @@ import com.ajsherrell.weatherapp.viewModel.WeatherListViewModel
 import io.reactivex.disposables.CompositeDisposable
 
 
-class WeatherListFragment : Fragment() {
+class WeatherListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     companion object {
         fun newInstance() = WeatherListFragment()
@@ -50,6 +51,7 @@ class WeatherListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mBinding = WeatherListFragmentBinding.inflate(inflater, container, false)
+        mBinding.swipeRefreshLayout.setOnRefreshListener(this)
         rootView = mBinding.root
         mBinding.lifecycleOwner = this
 
@@ -68,6 +70,15 @@ class WeatherListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         mViewModel = ViewModelProviders.of(this).get(WeatherListViewModel::class.java)
         mBinding.viewModel = mViewModel
+    }
+
+    override fun onRefresh() {//todo: viewmodel lists?
+        onItemsLoadComplete()
+    }
+
+    private fun onItemsLoadComplete() {
+        mBinding.recyclerListFiveDay.adapter?.notifyDataSetChanged()
+        mBinding.swipeRefreshLayout.isRefreshing
     }
 
     //todo: add clicklistener

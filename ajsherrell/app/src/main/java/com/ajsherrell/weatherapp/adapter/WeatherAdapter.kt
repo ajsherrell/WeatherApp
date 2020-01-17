@@ -5,8 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ajsherrell.weatherapp.MainActivity
 import com.ajsherrell.weatherapp.R
@@ -15,35 +13,36 @@ import com.ajsherrell.weatherapp.databinding.RecyclerItemBinding
 import com.ajsherrell.weatherapp.model.List
 import com.ajsherrell.weatherapp.model.Main
 import com.ajsherrell.weatherapp.model.Weather
-import kotlinx.android.synthetic.main.recycler_item.view.*
 
-class WeatherAdapter(val weather: Array<Weather>,
-                     val main: Array<Main>,
-                     val list: Array<List>) :
+class WeatherAdapter(
+    private val mWeather: Array<Weather>,
+    private val mMain: Array<Main>,
+    private val mList: Array<List>) :
 RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
     private val weatherDetailFragment = WeatherDetailFragment()
     private val activity: MainActivity = MainActivity()
 
-    class ViewHolder(private val binding: RecyclerItemBinding) :
+    class ViewHolder(binding: RecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private var mlistDayTextView: TextView? = null
-        private var mRvWeatherImageView: ImageView? = null
+        //private var mRvWeatherImageView: ImageView? = null
         private var mlistMinMaxTextView: TextView? = null
         private var mClicklistener: View.OnClickListener? = null
 
         init {
             mlistDayTextView = binding.listDayTextView
-            mRvWeatherImageView = binding.rvWeatherIcon
+           // mRvWeatherImageView = binding.rvWeatherIcon todo: do I need this?
             mlistMinMaxTextView = binding.listMinMaxTextView
             mClicklistener = binding.clickListener
+            binding.executePendingBindings()
         }
 
         fun bind(list: List, main: Main, weather: Weather, listener: View.OnClickListener) {
             mlistDayTextView?.text = list.dt_txt
             mlistMinMaxTextView?.text = main.getMinMaxTemp().toString()
-            mRvWeatherImageView?.setImageResource(weather.icon)
-            mClicklistener?.onClick(listener)
+           // mRvWeatherImageView?.setImageResource(weather.icon)
+            mClicklistener = listener
         }
 
     }
@@ -65,23 +64,28 @@ RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
     private fun openDetailFragment() {
         val fragmentTransaction = activity.supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.root_layout, weatherDetailFragment)
-        fragmentTransaction.commit()
+        fragmentTransaction.addToBackStack(null).commit()
     }
 
     override fun getItemCount(): Int {
-        //todo: fix
-        return
+        return mList.size + mWeather.size + mMain.size
     }
 
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val mList: List = list[position]
-        val mWeather: Weather = weather[position]
-        val mMain: Main = main[position]
+        val mList: List = mList[position]
+        val mWeather: Weather = mWeather[position]
+        val mMain: Main = mMain[position]
         holder.bind(mList, mMain, mWeather, createOnClickListener())
+
+    }
+
+    fun refreshList(list: Array<List>, main: Array<Main>, weather: Array<Weather>) {
+       // mList.clear() //todo: do i need this?
     }
 
 }
+
 
 
