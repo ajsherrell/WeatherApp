@@ -37,6 +37,7 @@ class WeatherDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mBinding = WeatherDetailFragmentBinding.inflate(inflater, container, false)
+
         mRootView = mBinding.root
         mBinding.lifecycleOwner = this
 

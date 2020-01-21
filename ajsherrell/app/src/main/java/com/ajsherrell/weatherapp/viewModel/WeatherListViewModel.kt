@@ -1,40 +1,49 @@
 package com.ajsherrell.weatherapp.viewModel
 
-import androidx.databinding.ObservableField
-import androidx.lifecycle.LifecycleObserver
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
+import androidx.databinding.Observable
+import androidx.databinding.PropertyChangeRegistry
+import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.ViewModel
 import com.ajsherrell.weatherapp.model.List
 import com.ajsherrell.weatherapp.model.Main
 import com.ajsherrell.weatherapp.model.Weather
 
-class WeatherListViewModel : ViewModel(), LifecycleObserver {
+class WeatherListViewModel : ViewModel(), Observable {
 
-    val mMain = ObservableField<Main>()
+    private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
 
-    val mWeather = ObservableField<Weather>()
+    private var mList: List? = null
+    private var mWeather: Weather? = null
+    private var mMain: Main? = null
 
-    val mList = ObservableField<List>()
+    var list: List?
+    @Bindable get() = mList
+    set(value) {
+        mList = value
+        callbacks.notifyChange(this, BR.viewModel)
+    }
 
-    val temp = mMain.set()
+    var weather: Weather?
+    @Bindable get() = mWeather
+    set(value) {
+        mWeather = value
+        callbacks.notifyChange(this, BR.viewModel)
+    }
 
+    var main: Main?
+    @Bindable get() = mMain
+    set(value) {
+        mMain = value
+        callbacks.notifyChange(this, BR.viewModel)
+    }
 
-//    val main = ObservableField<Main>() //short description
-//
-//    val icon = ObservableField<Weather>() //weather icon
-//
-//    val temp = ObservableField<Main>()
-//
-//    val temp_min = ObservableField<Main>()
-//
-//    val temp_max = ObservableField<Main>()
-//
-//    val dt_txt = ObservableField<List>() // date that needs formatting
-//
-//    //todo: setters?
-//    val minMaxTemp =
+    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+        callbacks.remove(callback)
+    }
 
-}
-
-private fun <T> ObservableField<T>.set() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+        callbacks.add(callback)
+    }
 }

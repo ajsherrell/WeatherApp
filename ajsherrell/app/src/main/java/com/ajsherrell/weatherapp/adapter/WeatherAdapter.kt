@@ -18,7 +18,7 @@ class WeatherAdapter(
     private val mWeather: Array<Weather>,
     private val mMain: Array<Main>,
     private val mList: Array<List>) :
-RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
+RecyclerView.Adapter<WeatherAdapter.ViewHolder>(), iListener {
 
     private val weatherDetailFragment = WeatherDetailFragment()
     private val activity: MainActivity = MainActivity()
@@ -26,13 +26,11 @@ RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
     class ViewHolder(binding: RecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private var mlistDayTextView: TextView? = null
-        //private var mRvWeatherImageView: ImageView? = null
         private var mlistMinMaxTextView: TextView? = null
         private var mClicklistener: View.OnClickListener? = null
 
         init {
             mlistDayTextView = binding.listDayTextView
-           // mRvWeatherImageView = binding.rvWeatherIcon todo: do I need this?
             mlistMinMaxTextView = binding.listMinMaxTextView
             mClicklistener = binding.clickListener
             binding.executePendingBindings()
@@ -40,14 +38,11 @@ RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
         fun bind(list: List, main: Main, weather: Weather, listener: View.OnClickListener) {
             mlistDayTextView?.text = list.dt_txt
-            mlistMinMaxTextView?.text = main.getMinMaxTemp().toString()
-           // mRvWeatherImageView?.setImageResource(weather.icon)
+            mlistMinMaxTextView?.text = main.getMinMaxTemp()
             mClicklistener = listener
         }
 
     }
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -55,7 +50,7 @@ RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
         )
     }
 
-    private fun createOnClickListener(): View.OnClickListener {
+    override fun onItemClick(): View.OnClickListener {
         return View.OnClickListener {
             openDetailFragment()
         }
@@ -77,12 +72,8 @@ RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
         val mList: List = mList[position]
         val mWeather: Weather = mWeather[position]
         val mMain: Main = mMain[position]
-        holder.bind(mList, mMain, mWeather, createOnClickListener())
+        holder.bind(mList, mMain, mWeather, onItemClick())
 
-    }
-
-    fun refreshList(list: Array<List>, main: Array<Main>, weather: Array<Weather>) {
-       // mList.clear() //todo: do i need this?
     }
 
 }

@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                app:detailWeatherIcon="@{viewModel.icon}"
+                app:imageRes="@{viewModel.weather.icon}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +38,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailWeatherIcon"
-                android:text="@{viewModel.dt_txt}"
+                android:text="@{viewModel.list.dt_txt}"
                 tools:text="Thursday" />
 
             <TextView
@@ -62,7 +62,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailLocationTextView"
-                android:text="@{viewModel.main}"
+                android:text="@{viewModel.weather.main}"
                 tools:text="Cloudy" />
 
             <TextView
@@ -74,7 +74,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailMainTextView"
-                android:text="@{viewModel.description}"
+                android:text="@{viewModel.weather.description}"
                 tools:text="Mostly cloudy, chance of snow" />
 
             <TextView
@@ -86,7 +86,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailDescriptionTextView"
-                android:text="@{String.valueOf(viewModel.temp)}"
+                android:text="@{String.valueOf(viewModel.main.temp)}"
                 tools:text="38 degrees" />
 
             <TextView
@@ -98,7 +98,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailTempTextView"
-                android:text="@{String.valueOf(`low `+ viewModel.temp_min + `/high ` + viewModel.temp_max)}"
+                android:text="@{viewModel.main.getMinMaxTemp()}"
                 tools:text="low 34 / high 60" />
 
             <TextView
@@ -110,7 +110,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="@{String.valueOf(viewModel.humidity + ` ` + `%`)}"
+                android:text="@{viewModel.main.getHumidity()}"
                 tools:text="30% Humidity" />
 
             <ImageView
@@ -133,7 +133,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/detailHumidityTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="@{String.valueOf(`Wind Speed: ` + viewModel.speed + ` mph`)}"
+                android:text="@{viewModel.wind.getWindSpeed()}"
                 tools:text="wind speed: 22 mph" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,32 +1,64 @@
 package com.ajsherrell.weatherapp.viewModel
 
-import androidx.databinding.ObservableField
-import androidx.lifecycle.LifecycleObserver
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
+import androidx.databinding.Observable
+import androidx.databinding.PropertyChangeRegistry
+import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.ViewModel
 import com.ajsherrell.weatherapp.model.Main
 import com.ajsherrell.weatherapp.model.Weather
 import com.ajsherrell.weatherapp.model.Wind
 import com.ajsherrell.weatherapp.model.List
 
-class WeatherDetailViewModel() : ViewModel(), LifecycleObserver {
+class WeatherDetailViewModel : ViewModel(), Observable {
 
-    val icon = ObservableField<Weather>()
+    private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
 
-    val dt_txt = ObservableField<String>("2020 Feb, 16") //todo: format date
+    private var mList: List? = null
+    private var mWeather: Weather? = null
+    private var mMain: Main? = null
+    private var mWind: Wind? = null
 
-    val main = ObservableField<String>("cloudy") //short description
+    var list: List?
+    @Bindable get() = mList
+    set(value) {
+        mList = value
+        callbacks.notifyChange(this, BR.viewModel)
+        }
 
-    val description = ObservableField<String>("very cloudy all day") //long weather description
+    var weather: Weather?
+    @Bindable get() = mWeather
+    set(value) {
+        mWeather = value
+        callbacks.notifyChange(this, BR.viewModel)
+        }
 
-    val temp = ObservableField<Double>(34.6)
+    var main: Main?
+    @Bindable get() = mMain
+    set(value) {
+        mMain = value
+        callbacks.notifyChange(this, BR.viewModel)
+        }
 
-    val temp_min = ObservableField<Double>(22.2)
+    var wind: Wind?
+    @Bindable get() = mWind
+    set(value) {
+        mWind = value
+        callbacks.notifyChange(this, BR.viewModel)
+    }
 
-    val temp_max = ObservableField<Double>(46.6)
+    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+        callbacks.remove(callback)
+    }
 
-    val humidity = ObservableField<Int>(39)
+    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+        callbacks.add(callback)
+    }
 
-    val speed = ObservableField<Double>(16.5)
-
-    //todo: setters?
 }
+
+
+
+
+
