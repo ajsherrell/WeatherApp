@@ -24,17 +24,11 @@ class DetailViewModel:BaseViewModel() {
         description.value = weather.description
     }
 
-    fun getDetailListShortDescription(): MutableLiveData<String> {
-        return shortDescription
-    }
+    fun getDetailListShortDescription() = shortDescription
 
-    fun getDetailListIcon(): MutableLiveData<String> {
-        return weatherIcon
-    }
+    fun getDetailListIcon() = weatherIcon
 
-    fun getDetailListDescription(): MutableLiveData<String> {
-        return description
-    }
+    fun getDetailListDescription() = description
 
     fun bindMain(main: Main) {
         masterTemp.value = main.getTemp()
@@ -42,32 +36,21 @@ class DetailViewModel:BaseViewModel() {
         humidity.value = main.getHumidity()
     }
 
-    fun getDetailListTemp(): MutableLiveData<String> {
-        return masterTemp
-    }
+    fun getDetailListTemp() = masterTemp
 
-    fun getDetailListMinMaxTemp(): MutableLiveData<String> {
-        return minMaxTemp
-    }
+    fun getDetailListMinMaxTemp() = minMaxTemp
 
-    fun getDetailListHumidity(): MutableLiveData<String> {
-        return humidity
-    }
+    fun getDetailListHumidity() = humidity
 
     fun bindList(category: Category) {
         day.value = category.dt_txt
     }
 
-    fun getDetailListDay(): MutableLiveData<String> {
-        return day
-    }
+    fun getDetailListDay() = day
 
     fun bindWind(wind: Wind) {
         windSpeed.value = wind.getWindSpeed()
     }
 
-    fun getDetailListWindSpeed(): MutableLiveData<String> {
-        return windSpeed
-    }
-
+    fun getDetailListWindSpeed() = windSpeed
 }

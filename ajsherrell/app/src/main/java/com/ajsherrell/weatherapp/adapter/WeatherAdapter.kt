@@ -10,7 +10,9 @@ import com.ajsherrell.weatherapp.R
 import com.ajsherrell.weatherapp.WeatherDetailFragment
 import com.ajsherrell.weatherapp.databinding.RecyclerItemBinding
 import com.ajsherrell.weatherapp.iListener
-import com.ajsherrell.weatherapp.model.*
+import com.ajsherrell.weatherapp.model.Category
+import com.ajsherrell.weatherapp.model.Main
+import com.ajsherrell.weatherapp.model.Weather
 import com.ajsherrell.weatherapp.viewModel.WeatherListViewModel
 
 class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.ViewHolder>(),
@@ -31,10 +33,9 @@ class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.ViewHolder>(),
             viewModel.bindCategory(category)
             viewModel.bindMain(main)
             viewModel.bindWeather(weather)
-            binding.setClickListener { listener }
+            binding.recyclerClickListener = listener
             binding.viewModel = viewModel //todo: what?
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,7 +43,7 @@ class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.ViewHolder>(),
         return ViewHolder(binding)
     }
 
-    override fun onItemClick(): View.OnClickListener {
+    override fun onItemClick(position: Int): View.OnClickListener {
         return View.OnClickListener {
             openDetailFragment()
         }
@@ -62,10 +63,8 @@ class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.ViewHolder>(),
             return list
     }
 
-
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(categoryList[position], mainList[position], weatherList[position], onItemClick())
+        holder.bind(categoryList[position], mainList[position], weatherList[position], onItemClick(position))
 
     }
 

@@ -27,7 +27,6 @@ class WeatherListFragment : Fragment(), iListener {
     private lateinit var weatherListViewModel: WeatherListViewModel
     private lateinit var rootView: View
     private lateinit var binding: WeatherListFragmentBinding
-    private var mClicklistener: View.OnClickListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +35,7 @@ class WeatherListFragment : Fragment(), iListener {
         binding = WeatherListFragmentBinding.inflate(inflater, container, false)
 
         rootView = binding.root
-
-        binding.clickListener = mClicklistener
+        binding.seeDetailsButton.setOnClickListener(onItemClick(0))
         binding.recyclerListFiveDay.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         return rootView
     }
@@ -64,7 +62,7 @@ class WeatherListFragment : Fragment(), iListener {
         errorSnackbar?.dismiss()
     }
 
-    override fun onItemClick(): View.OnClickListener {
+    override fun onItemClick(position: Int): View.OnClickListener {
         return View.OnClickListener {
             openDetailFragment()
         }

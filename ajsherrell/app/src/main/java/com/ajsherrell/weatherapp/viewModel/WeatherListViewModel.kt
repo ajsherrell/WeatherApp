@@ -77,35 +77,24 @@ class WeatherListViewModel:BaseViewModel() {
         weatherIcon.value = weather.icon
     }
 
-    fun getWeatherListShortDescription():MutableLiveData<String>{
-        return shortDescription
-    }
+    fun getWeatherListShortDescription() = shortDescription
 
-    fun getWeatherListIcon():MutableLiveData<String>{
-        return weatherIcon
-    }
+    fun getWeatherListIcon() = weatherIcon
 
     fun bindMain(main: Main) {
         masterTemp.value = main.getTemp()
         minMaxTemp.value = main.getMinMaxTemp()
     }
 
-    fun getWeatherListTemp():MutableLiveData<String>{
-        return masterTemp
-    }
+    fun getWeatherListTemp() = masterTemp
 
-    fun getWeatherListMinMaxTemp():MutableLiveData<String>{
-        return minMaxTemp
-    }
+    fun getWeatherListMinMaxTemp() = minMaxTemp
 
     fun bindCategory(category: Category) {
         day.value = category.dt_txt
     }
 
-    fun getWeatherListDay():MutableLiveData<String>{
-        return day
-    }
-
+    fun getWeatherListDay() = day
 }
 
 

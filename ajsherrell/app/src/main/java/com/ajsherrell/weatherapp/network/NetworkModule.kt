@@ -33,12 +33,3 @@ object NetworkModule {
     }
 }
 
-
-
-//Observer pattern example todo: saving this.
-//apiService.getData(someData)
-//.subscribeOn(Schedulers.io())
-//.observeOn(AndroidSchedulers.mainThread())
-//.subscribe (/* an Observer */)
-
-

@@ -1,4 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="listDayMargin">8</dimen>
+    <dimen name="cardElevation">4dp</dimen>
+    <dimen name="contentPadding">8dp</dimen>
+    <dimen name="cardCornerRadius">4dp</dimen>
+    <dimen name="imageMarginTop">32dp</dimen>
+    <dimen name="detailDayMarginTop">16dp</dimen>
+    <dimen name="detailLocationMarginTop">16dp</dimen>
+    <dimen name="detailMainMarginTop">16dp</dimen>
+    <dimen name="descriptionHeight">24dp</dimen>
+    <dimen name="descriptionMarginTop">16dp</dimen>
+    <dimen name="detailTempMarginTop">68dp</dimen>
+    <dimen name="detailMinMaxTempMarginTop">24dp</dimen>
+    <dimen name="humidityMarginBottom">24dp</dimen>
+    <dimen name="umbrellaImageMarginBottom">24dp</dimen>
+    <dimen name="detailWindSpeedMarginBottom">32dp</dimen>
+    <dimen name="detailsButtonMarginEnd">16dp</dimen>
+    <dimen name="detailsButtonMarginBottom">8dp</dimen>
+    <dimen name="masterMainMarginTop">8dp</dimen>
+    <dimen name="masterLocationMarginTop">16dp</dimen>
+    <dimen name="recyclerViewMarginTop">8dp</dimen>
+    <dimen name="guidelineBegin">352dp</dimen>
+    <dimen name="masterWeatherIconMarginTop">164dp</dimen>
+    <dimen name="masterWeatherIconMarginEnd">16dp</dimen>
+    <dimen name="masterTempMarginStart">16dp</dimen>
+    <dimen name="masterTempMarginTop">164dp</dimen>
+    <dimen name="masterMinMaxMarginStart">8dp</dimen>
+    <dimen name="masterMinMaxMarginTop">8dp</dimen>
 </resources>

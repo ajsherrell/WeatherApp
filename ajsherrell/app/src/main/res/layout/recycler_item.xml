@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="clickListener"
+            name="recyclerClickListener"
             type="android.view.View.OnClickListener"/>
         <variable
             name="viewModel"
@@ -15,10 +15,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{clickListener}"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="4dp"
-        app:contentPadding="8dp">
+        android:onClick="@{recyclerClickListener}"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:cardElevation="@dimen/cardElevation"
+        app:contentPadding="@dimen/contentPadding">
 
         <LinearLayout
             android:layout_width="match_parent"

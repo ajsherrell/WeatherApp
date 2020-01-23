@@ -3,10 +3,17 @@
     <string name="see_details">Details</string>
     <string name="dunwoody">Dunwoody</string>
 
-    //errors
+<!--  error strings -->
     <string name="retry">Retry</string>
     <string name="errorWeather">An error occurred while loading the weather</string>
     <string name="errorMain">An error occurred while loading the main</string>
     <string name="errorList">An error occurred while loading the list</string>
     <string name="errorWind">An error occurred while loading the wind</string>
+
+<!--  model string templates  -->
+    <string name="minMinTempString">Low: %1$f F / High: %2$f F</string>
+    <string name="tempString">%1$f F</string>
+    <string name="humidityString">%1$d percent humidity</string>
+    <string name="windSpeedString">Wind speed: %1$f mph</string>
+
 </resources>

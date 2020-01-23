@@ -1,8 +1,7 @@
 package com.ajsherrell.weatherapp.model
 
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
-import androidx.databinding.library.baseAdapters.BR
+import android.content.res.Resources
+import com.ajsherrell.weatherapp.R
 import com.squareup.moshi.JsonClass
 import kotlin.collections.List
 
@@ -27,7 +26,7 @@ data class Main(
     }
 
     private fun toString(tempMin: Double, tempMax: Double): String {
-        return "Low: $tempMin / High: $tempMax"
+        return Resources.getSystem().getString(R.string.minMinTempString, tempMin, tempMax)
     }
 
     fun getTemp(): String {
@@ -35,7 +34,7 @@ data class Main(
     }
 
     private fun toString(temp: Double): String {
-        return "$temp degrees"
+        return Resources.getSystem().getString(R.string.tempString, temp)
     }
 
     fun getHumidity(): String {
@@ -43,7 +42,7 @@ data class Main(
     }
 
     private fun toString(humidity: Int): String {
-        return "$humidity%"
+        return Resources.getSystem().getString(R.string.humidityString, humidity)
     }
 }
 
@@ -64,7 +63,7 @@ data class Wind(
     }
 
     private fun toString(speed: Double): String {
-        return "Wind Speed: $speed mph"
+        return Resources.getSystem().getString(R.string.windSpeedString, speed)
     }
 
 }

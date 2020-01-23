@@ -5,9 +5,6 @@
 
     <data>
         <variable
-            name="clickListener"
-            type="android.view.View.OnClickListener"/>
-        <variable
             name="viewModel"
             type="com.ajsherrell.weatherapp.viewModel.WeatherListViewModel" />
     </data>
@@ -21,9 +18,8 @@
             android:id="@+id/see_details_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:onClick="@{clickListener"
+            android:layout_marginEnd="@dimen/detailsButtonMarginEnd"
+            android:layout_marginBottom="@dimen/detailsButtonMarginBottom"
             android:background="@drawable/ic_arrow_forward_white_24dp"
             android:backgroundTint="@color/colorAccent"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -33,7 +29,7 @@
             android:id="@+id/masterMainTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/masterMainMarginTop"
             android:textAppearance="@style/TextAppearance.AppCompat.Display3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +41,7 @@
             android:id="@+id/masterLocationTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/masterLocationMarginTop"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +62,7 @@
             android:id="@+id/recycler_list_five_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/recyclerViewMarginTop"
             app:adapter="@{viewModel.getWeatherAdapter()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,14 +74,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="352dp" />
+            app:layout_constraintGuide_begin="@dimen/guidelineBegin" />
 
         <ImageView
             android:id="@+id/masterWeatherIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="164dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="@dimen/masterWeatherIconMarginTop"
+            android:layout_marginEnd="@dimen/masterWeatherIconMarginEnd"
             app:imageRes="@{viewModel.getWeatherListIcon()}"
             app:layout_constraintBottom_toTopOf="@+id/see_details_button"
             app:layout_constraintEnd_toEndOf="parent"
@@ -96,8 +92,8 @@
             android:id="@+id/masterTempTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="164dp"
+            android:layout_marginStart="@dimen/masterTempMarginStart"
+            android:layout_marginTop="@dimen/masterTempMarginTop"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toStartOf="@+id/masterLocationTextView"
             app:layout_constraintStart_toStartOf="parent"
@@ -109,8 +105,8 @@
             android:id="@+id/masterMinMaxTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/masterMinMaxMarginStart"
+            android:layout_marginTop="@dimen/masterMinMaxMarginTop"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintEnd_toStartOf="@+id/masterLocationTextView"
             app:layout_constraintStart_toStartOf="parent"
