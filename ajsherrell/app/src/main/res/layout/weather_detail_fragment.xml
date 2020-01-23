@@ -6,24 +6,20 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ajsherrell.weatherapp.viewModel.WeatherDetailViewModel" />
+            type="com.ajsherrell.weatherapp.viewModel.DetailViewModel" />
     </data>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".WeatherDetailFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:context=".WeatherDetailFragment">
 
             <ImageView
                 android:id="@+id/detailWeatherIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                app:imageRes="@{viewModel.weather.icon}"
+                app:imageRes="@{viewModel.getDetailListIcon()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +34,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailWeatherIcon"
-                android:text="@{viewModel.list.dt_txt}"
+                app:mutableText="@{viewModel.getDetailListDay()}"
                 tools:text="Thursday" />
 
             <TextView
@@ -62,7 +58,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailLocationTextView"
-                android:text="@{viewModel.weather.main}"
+                app:mutableText="@{viewModel.getDetailListShortDescription()}"
                 tools:text="Cloudy" />
 
             <TextView
@@ -74,7 +70,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailMainTextView"
-                android:text="@{viewModel.weather.description}"
+                app:mutableText="@{viewModel.getDetailListDescription()}"
                 tools:text="Mostly cloudy, chance of snow" />
 
             <TextView
@@ -86,7 +82,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailDescriptionTextView"
-                android:text="@{String.valueOf(viewModel.main.temp)}"
+                app:mutableText="@{viewModel.getDetailListTemp()}"
                 tools:text="38 degrees" />
 
             <TextView
@@ -98,7 +94,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailTempTextView"
-                android:text="@{viewModel.main.getMinMaxTemp()}"
+                app:mutableText="@{viewModel.getDetailListMinMaxTemp()}"
                 tools:text="low 34 / high 60" />
 
             <TextView
@@ -110,7 +106,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="@{viewModel.main.getHumidity()}"
+                app:mutableText="@{viewModel.getDetailListHumidity()}"
                 tools:text="30% Humidity" />
 
             <ImageView
@@ -133,9 +129,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/detailHumidityTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="@{viewModel.wind.getWindSpeed()}"
+                app:mutableText="@{viewModel.getDetailListWindSpeed()}"
                 tools:text="wind speed: 22 mph" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </FrameLayout>
 </layout>

@@ -1,49 +1,111 @@
 package com.ajsherrell.weatherapp.viewModel
 
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
-import androidx.databinding.Observable
-import androidx.databinding.PropertyChangeRegistry
-import androidx.databinding.library.baseAdapters.BR
-import androidx.lifecycle.ViewModel
-import com.ajsherrell.weatherapp.model.List
+import android.view.View
+import androidx.lifecycle.MutableLiveData
+import io.reactivex.Observable
+import com.ajsherrell.weatherapp.R
+import com.ajsherrell.weatherapp.adapter.WeatherAdapter
+import com.ajsherrell.weatherapp.base.BaseViewModel
+import com.ajsherrell.weatherapp.model.Category
 import com.ajsherrell.weatherapp.model.Main
 import com.ajsherrell.weatherapp.model.Weather
+import com.ajsherrell.weatherapp.network.WeatherApi
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class WeatherListViewModel : ViewModel(), Observable {
+class WeatherListViewModel:BaseViewModel() {
+    @Inject
+    lateinit var weatherApi: WeatherApi
 
-    private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
+    private lateinit var subscription: Disposable
 
-    private var mList: List? = null
-    private var mWeather: Weather? = null
-    private var mMain: Main? = null
+    val errorMessage: MutableLiveData<Int> = MutableLiveData()
+    val errorClickListener = View.OnClickListener { loadWeather() }
 
-    var list: List?
-    @Bindable get() = mList
-    set(value) {
-        mList = value
-        callbacks.notifyChange(this, BR.viewModel)
+    val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
+
+    val weatherAdapter: WeatherAdapter = WeatherAdapter()
+
+    private val shortDescription = MutableLiveData<String>()
+    private val masterTemp = MutableLiveData<String>()
+    private val weatherIcon = MutableLiveData<String>()
+    private val minMaxTemp = MutableLiveData<String>()
+    private val day = MutableLiveData<String>()
+
+    init {
+        loadWeather()
     }
 
-    var weather: Weather?
-    @Bindable get() = mWeather
-    set(value) {
-        mWeather = value
-        callbacks.notifyChange(this, BR.viewModel)
+    override fun onCleared() {
+        super.onCleared()
+        subscription.dispose()
     }
 
-    var main: Main?
-    @Bindable get() = mMain
-    set(value) {
-        mMain = value
-        callbacks.notifyChange(this, BR.viewModel)
+    private fun loadWeather() {
+        subscription = weatherApi.getWeather()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { onRetrieveWeatherListStart() }
+            .doOnTerminate { onRetrieveWeatherListFinish() }
+            .subscribe(
+                { result -> onRetrieveWeatherListSuccess(result) },
+                { onRetrieveWeatherListError() }
+            )
     }
 
-    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
-        callbacks.remove(callback)
+    private fun onRetrieveWeatherListStart(){
+        loadingVisibility.value = View.VISIBLE
+        errorMessage.value = null
     }
 
-    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
-        callbacks.add(callback)
+    private fun onRetrieveWeatherListFinish(){
+        loadingVisibility.value = View.GONE
     }
+
+    private fun onRetrieveWeatherListSuccess(categoryList:List<Category>){
+        weatherAdapter.updateListItems(categoryList)
+    }
+
+    private fun onRetrieveWeatherListError(){
+        errorMessage.value = R.string.errorWeather
+    }
+
+    fun bindWeather(weather: Weather) {
+        shortDescription.value = weather.main
+        weatherIcon.value = weather.icon
+    }
+
+    fun getWeatherListShortDescription():MutableLiveData<String>{
+        return shortDescription
+    }
+
+    fun getWeatherListIcon():MutableLiveData<String>{
+        return weatherIcon
+    }
+
+    fun bindMain(main: Main) {
+        masterTemp.value = main.getTemp()
+        minMaxTemp.value = main.getMinMaxTemp()
+    }
+
+    fun getWeatherListTemp():MutableLiveData<String>{
+        return masterTemp
+    }
+
+    fun getWeatherListMinMaxTemp():MutableLiveData<String>{
+        return minMaxTemp
+    }
+
+    fun bindCategory(category: Category) {
+        day.value = category.dt_txt
+    }
+
+    fun getWeatherListDay():MutableLiveData<String>{
+        return day
+    }
+
 }
+
+

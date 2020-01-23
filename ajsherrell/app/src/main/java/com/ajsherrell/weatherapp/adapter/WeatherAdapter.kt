@@ -3,51 +3,43 @@ package com.ajsherrell.weatherapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ajsherrell.weatherapp.MainActivity
 import com.ajsherrell.weatherapp.R
 import com.ajsherrell.weatherapp.WeatherDetailFragment
 import com.ajsherrell.weatherapp.databinding.RecyclerItemBinding
-import com.ajsherrell.weatherapp.model.List
-import com.ajsherrell.weatherapp.model.Main
-import com.ajsherrell.weatherapp.model.Weather
+import com.ajsherrell.weatherapp.iListener
+import com.ajsherrell.weatherapp.model.*
+import com.ajsherrell.weatherapp.viewModel.WeatherListViewModel
 
-class WeatherAdapter(
-    private val mWeather: Array<Weather>,
-    private val mMain: Array<Main>,
-    private val mList: Array<List>) :
-RecyclerView.Adapter<WeatherAdapter.ViewHolder>(), iListener {
+class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.ViewHolder>(),
+    iListener {
+
+    private lateinit var weatherList:List<Weather>
+    private lateinit var categoryList:List<Category>
+    private lateinit var mainList:List<Main>
 
     private val weatherDetailFragment = WeatherDetailFragment()
     private val activity: MainActivity = MainActivity()
 
-    class ViewHolder(binding: RecyclerItemBinding) :
+    class ViewHolder(private val binding: RecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private var mlistDayTextView: TextView? = null
-        private var mlistMinMaxTextView: TextView? = null
-        private var mClicklistener: View.OnClickListener? = null
+        private val viewModel = WeatherListViewModel()
 
-        init {
-            mlistDayTextView = binding.listDayTextView
-            mlistMinMaxTextView = binding.listMinMaxTextView
-            mClicklistener = binding.clickListener
-            binding.executePendingBindings()
-        }
-
-        fun bind(list: List, main: Main, weather: Weather, listener: View.OnClickListener) {
-            mlistDayTextView?.text = list.dt_txt
-            mlistMinMaxTextView?.text = main.getMinMaxTemp()
-            mClicklistener = listener
+        fun bind(category: Category, main: Main, weather: Weather, listener: View.OnClickListener) {
+            viewModel.bindCategory(category)
+            viewModel.bindMain(main)
+            viewModel.bindWeather(weather)
+            binding.setClickListener { listener }
+            binding.viewModel = viewModel //todo: what?
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            RecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        )
+        val binding: RecyclerItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.recycler_item, parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onItemClick(): View.OnClickListener {
@@ -63,19 +55,24 @@ RecyclerView.Adapter<WeatherAdapter.ViewHolder>(), iListener {
     }
 
     override fun getItemCount(): Int {
-        return mList.size + mWeather.size + mMain.size
+        var list = 0
+        if(::categoryList.isInitialized && ::weatherList.isInitialized && ::mainList.isInitialized) {
+            list = categoryList.size + weatherList.size + mainList.size
+        }
+            return list
     }
 
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val mList: List = mList[position]
-        val mWeather: Weather = mWeather[position]
-        val mMain: Main = mMain[position]
-        holder.bind(mList, mMain, mWeather, onItemClick())
+        holder.bind(categoryList[position], mainList[position], weatherList[position], onItemClick())
 
     }
 
+    fun updateListItems(categoryList: List<Category>) {
+        this.categoryList = categoryList
+        notifyDataSetChanged()
+    }
 }
 
 

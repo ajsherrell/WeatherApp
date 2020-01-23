@@ -38,7 +38,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{viewModel.weather.main}"
+            app:mutableText="@{viewModel.getWeatherListShortDescription()}"
             tools:text="Cloudy" />
 
         <TextView
@@ -53,12 +53,21 @@
             android:text="@string/dunwoody"
             tools:text="Atlanta" />
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:mutableVisibility="@{viewModel.getLoadingVisibility()}"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_list_five_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            app:adapter="@{viewModel.getWeatherAdapter()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline"
@@ -77,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="164dp"
             android:layout_marginEnd="16dp"
-            app:imageRes="@{viewModel.weather.icon}"
+            app:imageRes="@{viewModel.getWeatherListIcon()}"
             app:layout_constraintBottom_toTopOf="@+id/see_details_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/masterLocationTextView"
@@ -93,7 +102,7 @@
             app:layout_constraintEnd_toStartOf="@+id/masterLocationTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{String.valueOf(viewModel.main.temp)}"
+            app:mutableText="@{viewModel.getWeatherListTemp()}"
             tools:text="53 degrees" />
 
         <TextView
@@ -106,7 +115,7 @@
             app:layout_constraintEnd_toStartOf="@+id/masterLocationTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/masterTempTextView"
-            android:text="@{viewModel.main.getMinMaxTemp()}"
+            app:mutableText="@{viewModel.getWeatherListMinMaxTemp()}"
             tools:text="high 60 / low 34" />
 
         <TextView
@@ -120,7 +129,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/masterMinMaxTextView"
             app:layout_constraintVertical_bias="0.714"
-            android:text="@{viewModel.list.dt_txt}"
+            app:mutableText="@{viewModel.getWeatherListDay()}"
             tools:text="Thursday" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

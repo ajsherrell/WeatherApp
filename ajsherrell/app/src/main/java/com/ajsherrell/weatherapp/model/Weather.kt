@@ -3,15 +3,18 @@ package com.ajsherrell.weatherapp.model
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
+import com.squareup.moshi.JsonClass
 import kotlin.collections.List
 
-data class List(
+@JsonClass(generateAdapter = true)
+data class Category(
     var main: List<Main> = listOf(),
     var weather: List<Weather> = listOf(),
     var wind: List<Wind> = listOf(),
     var dt_txt: String
     )
 
+@JsonClass(generateAdapter = true)
 data class Main(
         var temp: Double,
         var temp_min: Double,
@@ -27,6 +30,14 @@ data class Main(
         return "Low: $tempMin / High: $tempMax"
     }
 
+    fun getTemp(): String {
+        return toString(temp)
+    }
+
+    private fun toString(temp: Double): String {
+        return "$temp degrees"
+    }
+
     fun getHumidity(): String {
        return toString(humidity)
     }
@@ -36,12 +47,14 @@ data class Main(
     }
 }
 
+@JsonClass(generateAdapter = true)
 data class Weather(
         var main: String,
         var description: String,
         var icon: String
     )
 
+@JsonClass(generateAdapter = true)
 data class Wind(
         var speed: Double
     ) {

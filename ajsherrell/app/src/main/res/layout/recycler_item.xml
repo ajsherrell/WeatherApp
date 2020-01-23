@@ -8,14 +8,8 @@
             name="clickListener"
             type="android.view.View.OnClickListener"/>
         <variable
-            name="weather"
-            type="com.ajsherrell.weatherapp.model.Weather" />
-        <variable
-            name="list"
-            type="com.ajsherrell.weatherapp.model.List" />
-        <variable
-            name="main"
-            type="com.ajsherrell.weatherapp.model.Main" />
+            name="viewModel"
+            type="com.ajsherrell.weatherapp.viewModel.WeatherListViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -37,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/listDayMargin"
                 android:layout_weight="1"
-                android:text="@{list.dt_txt}"
+                android:text="@{viewModel.weatherListDay}"
                 tools:text="Thursday" />
 
             <ImageView
@@ -46,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/listDayMargin"
                 android:layout_weight="1"
-                app:imageRes="@{weather.icon}" />
+                app:imageRes="@{viewModel.weatherListIcon}" />
 
             <TextView
                 android:id="@+id/listMinMaxTextView"
@@ -54,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/listDayMargin"
                 android:layout_weight="1"
-                android:text="@{main.getMinMaxTemp()}"
+                android:text="@{viewModel.weatherListMinMaxTemp}"
                 tools:text="low 34 / high 60" />
 
         </LinearLayout>
