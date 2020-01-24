@@ -1,11 +1,12 @@
 package com.ajsherrell.weatherapp.viewModel
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.ajsherrell.weatherapp.R
 import com.ajsherrell.weatherapp.adapter.WeatherAdapter
 import com.ajsherrell.weatherapp.base.BaseViewModel
-import com.ajsherrell.weatherapp.model.Model
+import com.ajsherrell.weatherapp.model.*
 import com.ajsherrell.weatherapp.network.WeatherApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -25,7 +26,11 @@ class WeatherListViewModel:BaseViewModel() {
 
     val weatherAdapter: WeatherAdapter = WeatherAdapter()
 
-    private val shortDescription = MutableLiveData<String>()
+    private lateinit var category: Category
+    private lateinit var weather: Weather
+    private lateinit var main: Main
+
+    private val shortDescription = MutableLiveData<String?>()
     private val masterTemp = MutableLiveData<String>()
     private val weatherIcon = MutableLiveData<String>()
     private val minMaxTemp = MutableLiveData<String>()
@@ -48,7 +53,10 @@ class WeatherListViewModel:BaseViewModel() {
             .doOnTerminate { onRetrieveWeatherListFinish() }
             .subscribe(
                 { result -> onRetrieveWeatherListSuccess(result) },
-                { onRetrieveWeatherListError() }
+                { e ->
+                    Log.e("Subscriber", "error fetching weather: ${e.message}")
+                    e.printStackTrace()
+                    onRetrieveWeatherListError() }
             )
     }
 
@@ -61,37 +69,39 @@ class WeatherListViewModel:BaseViewModel() {
         loadingVisibility.value = View.GONE
     }
 
-    private fun onRetrieveWeatherListSuccess(category: Model.Category){
-        weatherAdapter.updateListItems(category)
+    private fun onRetrieveWeatherListSuccess(response: List<Response>){
+        weatherAdapter.updateListItems(response)
     }
 
     private fun onRetrieveWeatherListError(){
         errorMessage.value = R.string.errorWeather
     }
 
-    fun bindWeather(weather: Model.Weather) {
-        shortDescription.value = weather.main
+    fun bind(response: Response) {
         weatherIcon.value = weather.icon
-    }
-
-    fun getWeatherListShortDescription() = shortDescription
-
-    fun getWeatherListIcon() = weatherIcon
-
-    fun bindMain(main: Model.Main) {
-        masterTemp.value = main.getTemp()
         minMaxTemp.value = main.getMinMaxTemp()
-    }
-
-    fun getWeatherListTemp() = masterTemp
-
-    fun getWeatherListMinMaxTemp() = minMaxTemp
-
-    fun bindCategory(category: Model.Category) {
         day.value = category.dt_txt
     }
 
-    fun getWeatherListDay() = day
+    fun getWeatherListShortDescription() {
+        shortDescription.value = weather.main
+    }
+
+    fun getWeatherListIcon() {
+        weatherIcon.value = weather.icon
+    }
+
+    fun getWeatherListTemp(){
+        masterTemp.value = main.getTemp()
+    }
+
+    fun getWeatherListMinMaxTemp() {
+        minMaxTemp.value = main.getMinMaxTemp()
+    }
+
+    fun getWeatherListDay() {
+        day.value = category.dt_txt
+    }
 }
 
 

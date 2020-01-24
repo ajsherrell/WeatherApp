@@ -6,81 +6,96 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlin.collections.List
 
-class Model {
-    @JsonClass(generateAdapter = true)
-    data class Category(
-        @Json(name = "main")
-        var main: List<Main> = mutableListOf(),
-        @Json(name = "weather")
-        var weather: List<Weather> = mutableListOf(),
-        @Json(name = "wind")
-        var wind: List<Wind> = mutableListOf(),
-        @Json(name = "dt_txt")
-        var dt_txt: String
-    )
+@JsonClass(generateAdapter = true)
+data class Response(
+    val cod: String?,
+    val message: Int?,
+    val cnt: Int?,
+    @Json(name = "list")
+    val category: List<Category> = mutableListOf(),
+    val city: List<City> = mutableListOf()
+)
 
-    @JsonClass(generateAdapter = true)
-    data class Main(
-        @Json(name = "temp")
-        var temp: Double,
-        @Json(name = "temp_min")
-        var temp_min: Double,
-        @Json(name = "temp_max")
-        var temp_max: Double,
-        @Json(name = "humidity")
-        var humidity: Int
-    ) {
+@JsonClass(generateAdapter = true)
+data class City(
+    val name: String?,
+    val coord: List<Coord> = mutableListOf(),
+    val country: String?,
+    val timeZone: Long?,
+    val sunrise: Long?,
+    val sunset: Long?
+)
 
-        fun getMinMaxTemp(): String {
-            return toString(temp_min, temp_max)
-        }
+@JsonClass(generateAdapter = true)
+data class Coord(
+    val lat: Double?,
+    val lon: Double?
+)
 
-        private fun toString(tempMin: Double, tempMax: Double): String {
-            return Resources.getSystem().getString(R.string.minMinTempString, tempMin, tempMax)
-        }
+@JsonClass(generateAdapter = true)
+@Json(name = "list")
+data class Category(
+    val main: List<Main> = mutableListOf(),
+    val weather: List<Weather> = mutableListOf(),
+    val wind: List<Wind> = mutableListOf(),
+    val dt_txt: String?
+)
 
-        fun getTemp(): String {
-            return toString(temp)
-        }
+@JsonClass(generateAdapter = true)
+data class Main(
+    val temp: Double?,
+    val temp_min: Double?,
+    val temp_max: Double?,
+    val humidity: Int?
+) {
 
-        private fun toString(temp: Double): String {
-            return Resources.getSystem().getString(R.string.tempString, temp)
-        }
-
-        fun getHumidity(): String {
-            return toString(humidity)
-        }
-
-        private fun toString(humidity: Int): String {
-            return Resources.getSystem().getString(R.string.humidityString, humidity)
-        }
+    fun getMinMaxTemp(): String {
+        return toString(temp_min, temp_max)
     }
 
-    @JsonClass(generateAdapter = true)
-    data class Weather(
-        @Json(name = "main")
-        var main: String,
-        @Json(name = "description")
-        var description: String,
-        @Json(name = "icon")
-        var icon: String
-    )
+    private fun toString(tempMin: Double?, tempMax: Double?): String {
+        return Resources.getSystem().getString(R.string.minMinTempString, tempMin, tempMax)
+    }
 
-    @JsonClass(generateAdapter = true)
-    data class Wind(
-        @Json(name = "speed")
-        var speed: Double
-    ) {
+    fun getTemp(): String {
+        return toString(temp)
+    }
 
-        fun getWindSpeed(): String {
-            return toString(speed)
-        }
+    private fun toString(temp: Double?): String {
+        return Resources.getSystem().getString(R.string.tempString, temp)
+    }
 
-        private fun toString(speed: Double): String {
-            return Resources.getSystem().getString(R.string.windSpeedString, speed)
-        }
+    fun getHumidity(): String {
+        return toString(humidity)
+    }
 
+    private fun toString(humidity: Int?): String {
+        return Resources.getSystem().getString(R.string.humidityString, humidity)
     }
 }
+
+@JsonClass(generateAdapter = true)
+data class Weather(
+    val main: String?,
+    val description: String?,
+    val icon: String?
+)
+
+@JsonClass(generateAdapter = true)
+data class Wind(
+    @Json(name = "speed")
+    val speed: Double?
+) {
+
+    fun getWindSpeed(): String {
+        return toString(speed)
+    }
+
+    private fun toString(speed: Double?): String {
+        return Resources.getSystem().getString(R.string.windSpeedString, speed)
+    }
+
+}
+
 
 

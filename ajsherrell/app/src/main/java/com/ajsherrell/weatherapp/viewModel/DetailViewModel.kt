@@ -2,9 +2,17 @@ package com.ajsherrell.weatherapp.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import com.ajsherrell.weatherapp.base.BaseViewModel
-import com.ajsherrell.weatherapp.model.Model
+import com.ajsherrell.weatherapp.model.Category
+import com.ajsherrell.weatherapp.model.Main
+import com.ajsherrell.weatherapp.model.Weather
+import com.ajsherrell.weatherapp.model.Wind
 
 class DetailViewModel:BaseViewModel() {
+
+    private lateinit var category: Category
+    private lateinit var weather: Weather
+    private lateinit var main: Main
+    private lateinit var wind: Wind
 
     private val shortDescription = MutableLiveData<String>()
     private val masterTemp = MutableLiveData<String>()
@@ -15,39 +23,35 @@ class DetailViewModel:BaseViewModel() {
     private val humidity = MutableLiveData<String>()
     private val windSpeed = MutableLiveData<String>()
 
-    fun bindWeather(weather: Model.Weather) {
+    fun getDetailListShortDescription() {
         shortDescription.value = weather.main
+    }
+
+    fun getDetailListIcon() {
         weatherIcon.value = weather.icon
+    }
+
+    fun getDetailListDescription() {
         description.value = weather.description
     }
 
-    fun getDetailListShortDescription() = shortDescription
-
-    fun getDetailListIcon() = weatherIcon
-
-    fun getDetailListDescription() = description
-
-    fun bindMain(main: Model.Main) {
+    fun getDetailListTemp() {
         masterTemp.value = main.getTemp()
+    }
+
+    fun getDetailListMinMaxTemp() {
         minMaxTemp.value = main.getMinMaxTemp()
+    }
+
+    fun getDetailListHumidity() {
         humidity.value = main.getHumidity()
     }
 
-    fun getDetailListTemp() = masterTemp
-
-    fun getDetailListMinMaxTemp() = minMaxTemp
-
-    fun getDetailListHumidity() = humidity
-
-    fun bindCategory(category: Model.Category) {
+    fun getDetailListDay() {
         day.value = category.dt_txt
     }
 
-    fun getDetailListDay() = day
-
-    fun bindWind(wind: Model.Wind) {
+    fun getDetailListWindSpeed() {
         windSpeed.value = wind.getWindSpeed()
     }
-
-    fun getDetailListWindSpeed() = windSpeed
 }
