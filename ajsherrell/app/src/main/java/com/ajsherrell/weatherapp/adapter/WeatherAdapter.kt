@@ -10,17 +10,17 @@ import com.ajsherrell.weatherapp.R
 import com.ajsherrell.weatherapp.WeatherDetailFragment
 import com.ajsherrell.weatherapp.databinding.RecyclerItemBinding
 import com.ajsherrell.weatherapp.iListener
-import com.ajsherrell.weatherapp.model.Category
-import com.ajsherrell.weatherapp.model.Main
-import com.ajsherrell.weatherapp.model.Weather
+import com.ajsherrell.weatherapp.model.Model
 import com.ajsherrell.weatherapp.viewModel.WeatherListViewModel
 
 class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.ViewHolder>(),
     iListener {
 
-    private lateinit var weatherList:List<Weather>
-    private lateinit var categoryList:List<Category>
-    private lateinit var mainList:List<Main>
+    private lateinit var category: Model.Category
+
+    private lateinit var weatherList:List<Model.Weather>
+    private lateinit var categoryList:List<Model.Category>
+    private lateinit var mainList:List<Model.Main>
 
     private val weatherDetailFragment = WeatherDetailFragment()
     private val activity: MainActivity = MainActivity()
@@ -29,12 +29,12 @@ class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.ViewHolder>(),
         RecyclerView.ViewHolder(binding.root) {
         private val viewModel = WeatherListViewModel()
 
-        fun bind(category: Category, main: Main, weather: Weather, listener: View.OnClickListener) {
+        fun bind(category: Model.Category, main: Model.Main, weather: Model.Weather, listener: View.OnClickListener) {
             viewModel.bindCategory(category)
             viewModel.bindMain(main)
             viewModel.bindWeather(weather)
             binding.recyclerClickListener = listener
-            binding.viewModel = viewModel //todo: what?
+            binding.viewModel = viewModel
         }
     }
 
@@ -68,8 +68,8 @@ class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.ViewHolder>(),
 
     }
 
-    fun updateListItems(categoryList: List<Category>) {
-        this.categoryList = categoryList
+    fun updateListItems(categoryList: Model.Category) {
+        this.category = categoryList
         notifyDataSetChanged()
     }
 }

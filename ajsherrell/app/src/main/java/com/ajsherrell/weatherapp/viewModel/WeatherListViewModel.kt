@@ -2,13 +2,10 @@ package com.ajsherrell.weatherapp.viewModel
 
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import io.reactivex.Observable
 import com.ajsherrell.weatherapp.R
 import com.ajsherrell.weatherapp.adapter.WeatherAdapter
 import com.ajsherrell.weatherapp.base.BaseViewModel
-import com.ajsherrell.weatherapp.model.Category
-import com.ajsherrell.weatherapp.model.Main
-import com.ajsherrell.weatherapp.model.Weather
+import com.ajsherrell.weatherapp.model.Model
 import com.ajsherrell.weatherapp.network.WeatherApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -64,15 +61,15 @@ class WeatherListViewModel:BaseViewModel() {
         loadingVisibility.value = View.GONE
     }
 
-    private fun onRetrieveWeatherListSuccess(categoryList:List<Category>){
-        weatherAdapter.updateListItems(categoryList)
+    private fun onRetrieveWeatherListSuccess(category: Model.Category){
+        weatherAdapter.updateListItems(category)
     }
 
     private fun onRetrieveWeatherListError(){
         errorMessage.value = R.string.errorWeather
     }
 
-    fun bindWeather(weather: Weather) {
+    fun bindWeather(weather: Model.Weather) {
         shortDescription.value = weather.main
         weatherIcon.value = weather.icon
     }
@@ -81,7 +78,7 @@ class WeatherListViewModel:BaseViewModel() {
 
     fun getWeatherListIcon() = weatherIcon
 
-    fun bindMain(main: Main) {
+    fun bindMain(main: Model.Main) {
         masterTemp.value = main.getTemp()
         minMaxTemp.value = main.getMinMaxTemp()
     }
@@ -90,7 +87,7 @@ class WeatherListViewModel:BaseViewModel() {
 
     fun getWeatherListMinMaxTemp() = minMaxTemp
 
-    fun bindCategory(category: Category) {
+    fun bindCategory(category: Model.Category) {
         day.value = category.dt_txt
     }
 

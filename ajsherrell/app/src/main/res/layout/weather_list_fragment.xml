@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/detailsButtonMarginEnd"
             android:layout_marginBottom="@dimen/detailsButtonMarginBottom"
-            android:background="@drawable/ic_arrow_forward_white_24dp"
+            android:background="@drawable/ic_chevron_right_black_24dp"
             android:backgroundTint="@color/colorAccent"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -34,6 +34,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/rainy"
             app:mutableText="@{viewModel.getWeatherListShortDescription()}"
             tools:text="Cloudy" />
 
@@ -82,11 +83,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/masterWeatherIconMarginTop"
             android:layout_marginEnd="@dimen/masterWeatherIconMarginEnd"
+            android:contentDescription="@string/weather_icon"
             app:imageRes="@{viewModel.getWeatherListIcon()}"
             app:layout_constraintBottom_toTopOf="@+id/see_details_button"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.514"
             app:layout_constraintStart_toEndOf="@+id/masterLocationTextView"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.083" />
 
         <TextView
             android:id="@+id/masterTempTextView"
@@ -94,8 +98,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/masterTempMarginStart"
             android:layout_marginTop="@dimen/masterTempMarginTop"
+            android:text="@string/_55_degrees"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintEnd_toStartOf="@+id/masterLocationTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:mutableText="@{viewModel.getWeatherListTemp()}"
@@ -107,8 +111,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/masterMinMaxMarginStart"
             android:layout_marginTop="@dimen/masterMinMaxMarginTop"
+            android:text="@string/low_22_f_high_67_f"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintEnd_toStartOf="@+id/masterLocationTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/masterTempTextView"
             app:mutableText="@{viewModel.getWeatherListMinMaxTemp()}"
@@ -124,6 +128,7 @@
             app:layout_constraintHorizontal_bias="0.095"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/masterMinMaxTextView"
+            android:text="@string/monday"
             app:layout_constraintVertical_bias="0.714"
             app:mutableText="@{viewModel.getWeatherListDay()}"
             tools:text="Thursday" />

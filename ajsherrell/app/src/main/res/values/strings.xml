@@ -11,9 +11,17 @@
     <string name="errorWind">An error occurred while loading the wind</string>
 
 <!--  model string templates  -->
-    <string name="minMinTempString">Low: %1$f F / High: %2$f F</string>
-    <string name="tempString">%1$f F</string>
-    <string name="humidityString">%1$d percent humidity</string>
+    <string name="minMinTempString">Low: %1$f °F / High: %2$f °F</string>
+    <string name="tempString">%1$f °F</string>
+    <string name="humidityString">%1$d \% Humidity</string>
     <string name="windSpeedString">Wind speed: %1$f mph</string>
+    <string name="monday">Monday</string>
+    <string name="rainy">Rainy</string>
+    <string name="partly_sunny">Partly Sunny</string>
+    <string name="_55_degrees">55 °F</string>
+    <string name="low_22_f_high_67_f">Low: 22 °F / High 67 °F</string>
+    <string name="humidity_32">Humidity 32%</string>
+    <string name="wind_speed_23_mph">Wind speed 23 mph</string>
+    <string name="weather_icon">Weather Icon</string>
 
 </resources>

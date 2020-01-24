@@ -2,10 +2,7 @@ package com.ajsherrell.weatherapp.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import com.ajsherrell.weatherapp.base.BaseViewModel
-import com.ajsherrell.weatherapp.model.Category
-import com.ajsherrell.weatherapp.model.Main
-import com.ajsherrell.weatherapp.model.Weather
-import com.ajsherrell.weatherapp.model.Wind
+import com.ajsherrell.weatherapp.model.Model
 
 class DetailViewModel:BaseViewModel() {
 
@@ -18,7 +15,7 @@ class DetailViewModel:BaseViewModel() {
     private val humidity = MutableLiveData<String>()
     private val windSpeed = MutableLiveData<String>()
 
-    fun bindWeather(weather: Weather) {
+    fun bindWeather(weather: Model.Weather) {
         shortDescription.value = weather.main
         weatherIcon.value = weather.icon
         description.value = weather.description
@@ -30,7 +27,7 @@ class DetailViewModel:BaseViewModel() {
 
     fun getDetailListDescription() = description
 
-    fun bindMain(main: Main) {
+    fun bindMain(main: Model.Main) {
         masterTemp.value = main.getTemp()
         minMaxTemp.value = main.getMinMaxTemp()
         humidity.value = main.getHumidity()
@@ -42,13 +39,13 @@ class DetailViewModel:BaseViewModel() {
 
     fun getDetailListHumidity() = humidity
 
-    fun bindList(category: Category) {
+    fun bindCategory(category: Model.Category) {
         day.value = category.dt_txt
     }
 
     fun getDetailListDay() = day
 
-    fun bindWind(wind: Wind) {
+    fun bindWind(wind: Model.Wind) {
         windSpeed.value = wind.getWindSpeed()
     }
 

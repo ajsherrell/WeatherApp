@@ -31,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/listDayMargin"
                 android:layout_weight="1"
-                android:text="@{viewModel.weatherListDay}"
+                android:text="@string/monday"
+                app:mutableText="@{viewModel.weatherListDay}"
                 tools:text="Thursday" />
 
             <ImageView
@@ -48,7 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/listDayMargin"
                 android:layout_weight="1"
-                android:text="@{viewModel.weatherListMinMaxTemp}"
+                android:text="@string/low_22_f_high_67_f"
+                app:mutableText="@{viewModel.weatherListMinMaxTemp}"
                 tools:text="low 34 / high 60" />
 
         </LinearLayout>
