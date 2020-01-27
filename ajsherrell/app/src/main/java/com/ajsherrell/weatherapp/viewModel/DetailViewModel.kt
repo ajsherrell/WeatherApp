@@ -2,56 +2,56 @@ package com.ajsherrell.weatherapp.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import com.ajsherrell.weatherapp.base.BaseViewModel
-import com.ajsherrell.weatherapp.model.Category
 import com.ajsherrell.weatherapp.model.Main
-import com.ajsherrell.weatherapp.model.Weather
 import com.ajsherrell.weatherapp.model.Wind
 
 class DetailViewModel:BaseViewModel() {
 
-    private lateinit var category: Category
-    private lateinit var weather: Weather
     private lateinit var main: Main
     private lateinit var wind: Wind
 
-    private val shortDescription = MutableLiveData<String>()
-    private val masterTemp = MutableLiveData<String>()
-    private val weatherIcon = MutableLiveData<String>()
-    private val minMaxTemp = MutableLiveData<String>()
-    private val day = MutableLiveData<String>()
-    private val description = MutableLiveData<String>()
-    private val humidity = MutableLiveData<String>()
-    private val windSpeed = MutableLiveData<String>()
+    private val shortDescription = MutableLiveData<String?>()
+    private val masterTemp = MutableLiveData<String?>()
+    private val weatherIcon = MutableLiveData<String?>()
+    private val minMaxTemp = MutableLiveData<String?>()
+    private val day = MutableLiveData<String?>()
+    private val description = MutableLiveData<String?>()
+    private val humidity = MutableLiveData<String?>()
+    private val windSpeed = MutableLiveData<String?>()
 
-    fun getDetailListShortDescription() {
-        shortDescription.value = weather.main
+    fun getDetailListShortDescription():MutableLiveData<String?> {
+        return shortDescription
     }
 
-    fun getDetailListIcon() {
-        weatherIcon.value = weather.icon
+    fun getDetailListIcon():MutableLiveData<String?> {
+       return weatherIcon
     }
 
-    fun getDetailListDescription() {
-        description.value = weather.description
+    fun getDetailListDescription():MutableLiveData<String?> {
+        return description
     }
 
-    fun getDetailListTemp() {
+    fun getDetailListTemp():MutableLiveData<String?> {
         masterTemp.value = main.getTemp()
+        return masterTemp
     }
 
-    fun getDetailListMinMaxTemp() {
+    fun getDetailListMinMaxTemp():MutableLiveData<String?> {
         minMaxTemp.value = main.getMinMaxTemp()
+        return minMaxTemp
     }
 
-    fun getDetailListHumidity() {
+    fun getDetailListHumidity():MutableLiveData<String?> {
         humidity.value = main.getHumidity()
+        return humidity
     }
 
-    fun getDetailListDay() {
-        day.value = category.dt_txt
+    fun getDetailListDay():MutableLiveData<String?> {
+       return day
     }
 
-    fun getDetailListWindSpeed() {
+    fun getDetailListWindSpeed():MutableLiveData<String?> {
         windSpeed.value = wind.getWindSpeed()
+        return windSpeed
     }
 }

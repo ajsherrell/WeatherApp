@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="viewModel"
             type="com.ajsherrell.weatherapp.viewModel.WeatherListViewModel" />
@@ -34,8 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/rainy"
-            app:mutableText="@{viewModel.getWeatherListShortDescription()}"
+            app:mutableText="@{viewModel.getMasterShortDescription()}"
             tools:text="Cloudy" />
 
         <TextView
@@ -64,9 +64,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/recyclerViewMarginTop"
-            app:adapter="@{viewModel.getWeatherAdapter()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:adapter="@{viewModel.getWeatherAdapter()}"
             app:layout_constraintTop_toTopOf="@+id/guideline"
             tools:listitem="@layout/recycler_item" />
 
@@ -84,7 +84,7 @@
             android:layout_marginTop="@dimen/masterWeatherIconMarginTop"
             android:layout_marginEnd="@dimen/masterWeatherIconMarginEnd"
             android:contentDescription="@string/weather_icon"
-            app:imageRes="@{viewModel.getWeatherListIcon()}"
+            app:imageRes="@{viewModel.getMasterWeatherIcon()}"
             app:layout_constraintBottom_toTopOf="@+id/see_details_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.514"
@@ -98,11 +98,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/masterTempMarginStart"
             android:layout_marginTop="@dimen/masterTempMarginTop"
-            android:text="@string/_55_degrees"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:mutableText="@{viewModel.getWeatherListTemp()}"
+            app:mutableText="@{viewModel.getMasterTemp()}"
             tools:text="53 degrees" />
 
         <TextView
@@ -115,7 +114,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/masterTempTextView"
-            app:mutableText="@{viewModel.getWeatherListMinMaxTemp()}"
+            app:mutableText="@{viewModel.getMasterMinMaxTemp()}"
             tools:text="high 60 / low 34" />
 
         <TextView
@@ -130,7 +129,7 @@
             app:layout_constraintTop_toBottomOf="@+id/masterMinMaxTextView"
             android:text="@string/monday"
             app:layout_constraintVertical_bias="0.714"
-            app:mutableText="@{viewModel.getWeatherListDay()}"
+            app:mutableText="@{viewModel.getMasterDay()}"
             tools:text="Thursday" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,20 +10,13 @@ import com.ajsherrell.weatherapp.R
 import com.ajsherrell.weatherapp.WeatherDetailFragment
 import com.ajsherrell.weatherapp.databinding.RecyclerItemBinding
 import com.ajsherrell.weatherapp.iListener
-import com.ajsherrell.weatherapp.model.Category
-import com.ajsherrell.weatherapp.model.Main
 import com.ajsherrell.weatherapp.model.Response
-import com.ajsherrell.weatherapp.model.Weather
 import com.ajsherrell.weatherapp.viewModel.WeatherListViewModel
 
 class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.ViewHolder>(),
     iListener {
 
     private lateinit var responseList: List<Response>
-
-    private lateinit var weatherList:List<Weather>
-    private lateinit var categoryList:List<Category>
-    private lateinit var mainList:List<Main>
 
     private val weatherDetailFragment = WeatherDetailFragment()
     private val activity: MainActivity = MainActivity()
@@ -36,6 +29,7 @@ class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.ViewHolder>(),
             viewModel.bind(response)
             binding.recyclerClickListener = listener
             binding.viewModel = viewModel
+            binding.executePendingBindings()
         }
     }
 

@@ -49,27 +49,30 @@ data class Main(
     val humidity: Int?
 ) {
 
-    fun getMinMaxTemp(): String {
-        return toString(temp_min, temp_max)
+    fun getMinMaxTemp(): String? {
+        val temp_minF = temp_min?.times(9/5)?.minus(459.67)
+        val temp_maxF = temp_max?.times(9/5)?.minus(459.67)
+        return toString(temp_minF, temp_maxF)
     }
 
-    private fun toString(tempMin: Double?, tempMax: Double?): String {
+    private fun toString(tempMin: Double?, tempMax: Double?): String? {
         return Resources.getSystem().getString(R.string.minMinTempString, tempMin, tempMax)
     }
 
-    fun getTemp(): String {
-        return toString(temp)
+    fun getTemp(): String? {
+        val tempF = temp?.times(9/5)?.minus(459.67)
+        return toString(tempF)
     }
 
-    private fun toString(temp: Double?): String {
+    private fun toString(temp: Double?): String? {
         return Resources.getSystem().getString(R.string.tempString, temp)
     }
 
-    fun getHumidity(): String {
+    fun getHumidity(): String? {
         return toString(humidity)
     }
 
-    private fun toString(humidity: Int?): String {
+    private fun toString(humidity: Int?): String? {
         return Resources.getSystem().getString(R.string.humidityString, humidity)
     }
 }
@@ -87,11 +90,11 @@ data class Wind(
     val speed: Double?
 ) {
 
-    fun getWindSpeed(): String {
+    fun getWindSpeed(): String? {
         return toString(speed)
     }
 
-    private fun toString(speed: Double?): String {
+    private fun toString(speed: Double?): String? {
         return Resources.getSystem().getString(R.string.windSpeedString, speed)
     }
 

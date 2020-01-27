@@ -33,7 +33,7 @@ class WeatherDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         detailViewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
-
+        mBinding.lifecycleOwner = this
         mBinding.viewModel = detailViewModel
     }
 

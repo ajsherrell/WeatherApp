@@ -2,6 +2,7 @@ package com.ajsherrell.weatherapp
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +23,7 @@ class WeatherListFragment : Fragment(), iListener {
         fun newInstance() = WeatherListFragment()
     }
 
-    private val TAG: String = "MainActivity"
+    private val TAG: String = "WeatherListFragment"
 
     private lateinit var weatherListViewModel: WeatherListViewModel
     private lateinit var rootView: View
@@ -45,11 +46,12 @@ class WeatherListFragment : Fragment(), iListener {
         weatherListViewModel = ViewModelProviders.of(this).get(WeatherListViewModel::class.java)
 
         //error snackbar
-        weatherListViewModel.errorMessage.observe(this, Observer {
+        weatherListViewModel.errorMessage.observe(viewLifecycleOwner, Observer {
             errorMessage -> if(errorMessage != null) showError(errorMessage) else hideError()
         })
-
+        binding.lifecycleOwner = this
         binding.viewModel = weatherListViewModel
+        Log.d(TAG, "weatherListViewModel: " + weatherListViewModel)
     }
 
     private fun showError(@StringRes errorMessage:Int){

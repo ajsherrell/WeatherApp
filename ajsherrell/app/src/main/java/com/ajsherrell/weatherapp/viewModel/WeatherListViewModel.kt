@@ -19,22 +19,25 @@ class WeatherListViewModel:BaseViewModel() {
 
     private lateinit var subscription: Disposable
 
-    val errorMessage: MutableLiveData<Int> = MutableLiveData()
+    private val TAG: String = "WeatherListViewModel"
+
+    val errorMessage: MutableLiveData<Int?> = MutableLiveData()
     val errorClickListener = View.OnClickListener { loadWeather() }
 
-    val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
+    val loadingVisibility: MutableLiveData<Int?> = MutableLiveData()
 
-    val weatherAdapter: WeatherAdapter = WeatherAdapter()
+    private val weatherAdapter: WeatherAdapter = WeatherAdapter()
 
+    private lateinit var response: Response
     private lateinit var category: Category
     private lateinit var weather: Weather
     private lateinit var main: Main
 
     private val shortDescription = MutableLiveData<String?>()
-    private val masterTemp = MutableLiveData<String>()
-    private val weatherIcon = MutableLiveData<String>()
-    private val minMaxTemp = MutableLiveData<String>()
-    private val day = MutableLiveData<String>()
+    private val masterTemp = MutableLiveData<String?>()
+    private val weatherIcon = MutableLiveData<String?>()
+    private val minMaxTemp = MutableLiveData<String?>()
+    private val day = MutableLiveData<String?>()
 
     init {
         loadWeather()
@@ -78,30 +81,35 @@ class WeatherListViewModel:BaseViewModel() {
     }
 
     fun bind(response: Response) {
+        this.response = response
+        day.value = category.dt_txt
         weatherIcon.value = weather.icon
         minMaxTemp.value = main.getMinMaxTemp()
-        day.value = category.dt_txt
+        Log.d(TAG, "day + minMaxTemp: " + day + minMaxTemp)
     }
 
-    fun getWeatherListShortDescription() {
-        shortDescription.value = weather.main
-    }
-
-    fun getWeatherListIcon() {
-        weatherIcon.value = weather.icon
-    }
-
-    fun getWeatherListTemp(){
+    fun getMasterTemp():MutableLiveData<String?> {
         masterTemp.value = main.getTemp()
+        return masterTemp
     }
 
-    fun getWeatherListMinMaxTemp() {
+    fun getMasterMinMaxTemp():MutableLiveData<String?> {
         minMaxTemp.value = main.getMinMaxTemp()
+        return minMaxTemp
     }
 
-    fun getWeatherListDay() {
-        day.value = category.dt_txt
+    fun getMasterShortDescription():MutableLiveData<String?> {
+        return shortDescription
     }
+
+    fun getMasterWeatherIcon():MutableLiveData<String?> {
+        return weatherIcon
+    }
+
+    fun getMasterDay():MutableLiveData<String?> {
+        return day
+    }
+
 }
 
 
