@@ -1,5 +1,6 @@
 package com.ajsherrell.weatherapp
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -28,6 +29,10 @@ class WeatherDetailFragment : Fragment() {
 
         mRootView = mBinding.root
         return mRootView
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

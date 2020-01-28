@@ -1,10 +1,13 @@
 package com.ajsherrell.weatherapp.model
 
+import android.content.Context
 import android.content.res.Resources
 import com.ajsherrell.weatherapp.R
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlin.collections.List
+
+val context: Context? = null
 
 @JsonClass(generateAdapter = true)
 data class Response(
@@ -13,13 +16,13 @@ data class Response(
     val cnt: Int?,
     @Json(name = "list")
     val category: List<Category> = mutableListOf(),
-    val city: List<City> = mutableListOf()
+    val city: City
 )
 
 @JsonClass(generateAdapter = true)
 data class City(
     val name: String?,
-    val coord: List<Coord> = mutableListOf(),
+    val coord: Coord,
     val country: String?,
     val timeZone: Long?,
     val sunrise: Long?,
@@ -35,9 +38,10 @@ data class Coord(
 @JsonClass(generateAdapter = true)
 @Json(name = "list")
 data class Category(
-    val main: List<Main> = mutableListOf(),
+    val dt: Long?,
+    val main: Main,
     val weather: List<Weather> = mutableListOf(),
-    val wind: List<Wind> = mutableListOf(),
+    val wind: Wind,
     val dt_txt: String?
 )
 
@@ -56,7 +60,8 @@ data class Main(
     }
 
     private fun toString(tempMin: Double?, tempMax: Double?): String? {
-        return Resources.getSystem().getString(R.string.minMinTempString, tempMin, tempMax)
+        //return Resources.getSystem().getString(R.string.minMinTempString, tempMin, tempMax)
+        return context?.resources?.getString(R.string.minMinTempString, tempMin, tempMax)
     }
 
     fun getTemp(): String? {
@@ -65,7 +70,8 @@ data class Main(
     }
 
     private fun toString(temp: Double?): String? {
-        return Resources.getSystem().getString(R.string.tempString, temp)
+        //return Resources.getSystem().getString(R.string.tempString, temp)
+        return context?.resources?.getString(R.string.tempString, temp)
     }
 
     fun getHumidity(): String? {
@@ -73,7 +79,8 @@ data class Main(
     }
 
     private fun toString(humidity: Int?): String? {
-        return Resources.getSystem().getString(R.string.humidityString, humidity)
+        //return Resources.getSystem().getString(R.string.humidityString, humidity)
+        return context?.resources?.getString(R.string.humidityString, humidity)
     }
 }
 
@@ -95,7 +102,8 @@ data class Wind(
     }
 
     private fun toString(speed: Double?): String? {
-        return Resources.getSystem().getString(R.string.windSpeedString, speed)
+        //return Resources.getSystem().getString(R.string.windSpeedString, speed)
+        return context?.resources?.getString(R.string.windSpeedString, speed)
     }
 
 }

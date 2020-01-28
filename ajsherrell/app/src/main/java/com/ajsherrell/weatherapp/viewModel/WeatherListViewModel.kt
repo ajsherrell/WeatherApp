@@ -2,6 +2,7 @@ package com.ajsherrell.weatherapp.viewModel
 
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ajsherrell.weatherapp.R
 import com.ajsherrell.weatherapp.adapter.WeatherAdapter
@@ -26,12 +27,12 @@ class WeatherListViewModel:BaseViewModel() {
 
     val loadingVisibility: MutableLiveData<Int?> = MutableLiveData()
 
-    private val weatherAdapter: WeatherAdapter = WeatherAdapter()
+    val weatherAdapter: WeatherAdapter = WeatherAdapter()
 
-    private lateinit var response: Response
-    private lateinit var category: Category
-    private lateinit var weather: Weather
-    private lateinit var main: Main
+    private var response: Response? = null
+    private var category: Category? = null
+    private var main: Main? = null
+    private var weather: Weather? = null
 
     private val shortDescription = MutableLiveData<String?>()
     private val masterTemp = MutableLiveData<String?>()
@@ -72,29 +73,30 @@ class WeatherListViewModel:BaseViewModel() {
         loadingVisibility.value = View.GONE
     }
 
-    private fun onRetrieveWeatherListSuccess(response: List<Response>){
-        weatherAdapter.updateListItems(response)
+    private fun onRetrieveWeatherListSuccess(response: Response){
+        weatherAdapter.updateListItems(response.category)
     }
 
     private fun onRetrieveWeatherListError(){
         errorMessage.value = R.string.errorWeather
     }
 
-    fun bind(response: Response) {
-        this.response = response
+    fun bind(category: Category) {
+        this.category = category
         day.value = category.dt_txt
-        weatherIcon.value = weather.icon
-        minMaxTemp.value = main.getMinMaxTemp()
-        Log.d(TAG, "day + minMaxTemp: " + day + minMaxTemp)
+        weatherIcon.value = category.weather[0].icon
+        minMaxTemp.value = category.main.getMinMaxTemp()
+
+        Log.d(TAG, "minMaxTemp: " + minMaxTemp)
     }
 
     fun getMasterTemp():MutableLiveData<String?> {
-        masterTemp.value = main.getTemp()
+        masterTemp.value = main?.getTemp()
         return masterTemp
     }
 
     fun getMasterMinMaxTemp():MutableLiveData<String?> {
-        minMaxTemp.value = main.getMinMaxTemp()
+        minMaxTemp.value = main?.getMinMaxTemp()
         return minMaxTemp
     }
 

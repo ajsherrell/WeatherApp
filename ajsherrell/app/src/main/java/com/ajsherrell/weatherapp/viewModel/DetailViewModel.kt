@@ -7,8 +7,8 @@ import com.ajsherrell.weatherapp.model.Wind
 
 class DetailViewModel:BaseViewModel() {
 
-    private lateinit var main: Main
-    private lateinit var wind: Wind
+    private var main: Main? = null
+    private var wind: Wind? = null
 
     private val shortDescription = MutableLiveData<String?>()
     private val masterTemp = MutableLiveData<String?>()
@@ -32,17 +32,17 @@ class DetailViewModel:BaseViewModel() {
     }
 
     fun getDetailListTemp():MutableLiveData<String?> {
-        masterTemp.value = main.getTemp()
+        masterTemp.value = main?.getTemp()
         return masterTemp
     }
 
     fun getDetailListMinMaxTemp():MutableLiveData<String?> {
-        minMaxTemp.value = main.getMinMaxTemp()
+        minMaxTemp.value = main?.getMinMaxTemp()
         return minMaxTemp
     }
 
     fun getDetailListHumidity():MutableLiveData<String?> {
-        humidity.value = main.getHumidity()
+        humidity.value = main?.getHumidity()
         return humidity
     }
 
@@ -51,7 +51,7 @@ class DetailViewModel:BaseViewModel() {
     }
 
     fun getDetailListWindSpeed():MutableLiveData<String?> {
-        windSpeed.value = wind.getWindSpeed()
+        windSpeed.value = wind?.getWindSpeed()
         return windSpeed
     }
 }

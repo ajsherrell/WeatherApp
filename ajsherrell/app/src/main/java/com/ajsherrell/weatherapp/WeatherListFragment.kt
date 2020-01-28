@@ -1,5 +1,6 @@
 package com.ajsherrell.weatherapp
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -39,6 +40,10 @@ class WeatherListFragment : Fragment(), iListener {
         binding.seeDetailsButton.setOnClickListener(onItemClick(0))
         binding.recyclerListFiveDay.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         return rootView
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

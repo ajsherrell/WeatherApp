@@ -56,7 +56,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline"
-            app:mutableVisibility="@{viewModel.getLoadingVisibility()}"/>
+            app:mutableVisibility="@{viewModel.loadingVisibility}"/>
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -66,7 +66,7 @@
             android:layout_marginTop="@dimen/recyclerViewMarginTop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:adapter="@{viewModel.getWeatherAdapter()}"
+            app:adapter="@{viewModel.weatherAdapter}"
             app:layout_constraintTop_toTopOf="@+id/guideline"
             tools:listitem="@layout/recycler_item" />
 

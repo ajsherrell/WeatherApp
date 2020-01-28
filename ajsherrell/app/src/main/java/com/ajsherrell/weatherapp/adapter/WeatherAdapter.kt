@@ -10,13 +10,15 @@ import com.ajsherrell.weatherapp.R
 import com.ajsherrell.weatherapp.WeatherDetailFragment
 import com.ajsherrell.weatherapp.databinding.RecyclerItemBinding
 import com.ajsherrell.weatherapp.iListener
+import com.ajsherrell.weatherapp.model.Category
 import com.ajsherrell.weatherapp.model.Response
 import com.ajsherrell.weatherapp.viewModel.WeatherListViewModel
 
 class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.ViewHolder>(),
     iListener {
 
-    private lateinit var responseList: List<Response>
+    private var responseList: Response? = null
+    private lateinit var category: List<Category>
 
     private val weatherDetailFragment = WeatherDetailFragment()
     private val activity: MainActivity = MainActivity()
@@ -25,8 +27,8 @@ class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.ViewHolder>(),
         RecyclerView.ViewHolder(binding.root) {
         private val viewModel = WeatherListViewModel()
 
-        fun bind(response: Response, listener: View.OnClickListener) {
-            viewModel.bind(response)
+        fun bind(category: Category, listener: View.OnClickListener) {
+            viewModel.bind(category)
             binding.recyclerClickListener = listener
             binding.viewModel = viewModel
             binding.executePendingBindings()
@@ -51,16 +53,16 @@ class WeatherAdapter: RecyclerView.Adapter<WeatherAdapter.ViewHolder>(),
     }
 
     override fun getItemCount(): Int {
-        return if(::responseList.isInitialized) responseList.size else 0
+        return if(::category.isInitialized) category.size else 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(responseList[position], onItemClick(position))
+        holder.bind(category[position], onItemClick(position))
 
     }
 
-    fun updateListItems(response: List<Response>) {
-        this.responseList = response
+    fun updateListItems(categoryList: List<Category>) {
+        this.category = categoryList
         notifyDataSetChanged()
     }
 }

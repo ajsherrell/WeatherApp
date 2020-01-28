@@ -11,10 +11,10 @@
     <string name="errorWind">An error occurred while loading the wind</string>
 
 <!--  model string templates  -->
-    <string name="minMinTempString" formatted="false">Low: %1$f \°F / High: %2$f \°F</string>
-    <string name="tempString" formatted="false">%f \°F</string>
-    <string name="humidityString" formatted="false">%d \% Humidity</string>
-    <string name="windSpeedString" formatted="false">Wind speed: %f mph</string>
+    <string name="minMinTempString">Low: %1$f \°F / High: %2$f \°F</string>
+    <string name="tempString">%f \°F</string>
+    <string name="humidityString">%d \% Humidity</string>
+    <string name="windSpeedString">Wind speed: %f mph</string>
     <string name="monday">Monday</string>
     <string name="rainy">Rainy</string>
     <string name="partly_sunny">Partly Sunny</string>
