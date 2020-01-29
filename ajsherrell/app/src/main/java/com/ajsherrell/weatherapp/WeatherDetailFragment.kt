@@ -1,14 +1,13 @@
 package com.ajsherrell.weatherapp
 
-import android.content.Context
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.ajsherrell.weatherapp.databinding.WeatherDetailFragmentBinding
-import com.ajsherrell.weatherapp.viewModel.DetailViewModel
+import com.ajsherrell.weatherapp.viewModel.WeatherListViewModel
 
 
 class WeatherDetailFragment : Fragment() {
@@ -17,9 +16,10 @@ class WeatherDetailFragment : Fragment() {
         fun newInstance() = WeatherDetailFragment()
     }
 
+    private val weatherListViewModel: WeatherListViewModel by activityViewModels()
+
     private lateinit var mRootView: View
     private lateinit var mBinding: WeatherDetailFragmentBinding
-    private lateinit var detailViewModel: DetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,18 +28,8 @@ class WeatherDetailFragment : Fragment() {
         mBinding = WeatherDetailFragmentBinding.inflate(inflater, container, false)
 
         mRootView = mBinding.root
+        mBinding.lifecycleOwner = this
+        mBinding.viewModel = weatherListViewModel
         return mRootView
     }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        detailViewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
-        mBinding.lifecycleOwner = this
-        mBinding.viewModel = detailViewModel
-    }
-
 }

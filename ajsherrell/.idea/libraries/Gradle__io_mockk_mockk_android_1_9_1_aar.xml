@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: io.mockk:mockk-android:1.9.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/310a3960e959edbf174278efeb0e0eeb/mockk-android-1.9.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/310a3960e959edbf174278efeb0e0eeb/mockk-android-1.9.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/004415720c321545f8faeb90d03ef68b/mockk-android-1.9.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/004415720c321545f8faeb90d03ef68b/mockk-android-1.9.1/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.mockk/mockk-android/1.9.1/d9865c114cb177a4eca60b278fb6a43bad66d5d/mockk-android-1.9.1-javadoc.jar!/" />

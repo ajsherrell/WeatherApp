@@ -1,7 +1,6 @@
 package com.ajsherrell.weatherapp.component
 
 import com.ajsherrell.weatherapp.network.NetworkModule
-import com.ajsherrell.weatherapp.viewModel.DetailViewModel
 import com.ajsherrell.weatherapp.viewModel.WeatherListViewModel
 import dagger.Component
 import javax.inject.Singleton
@@ -11,8 +10,6 @@ import javax.inject.Singleton
 interface ViewModelInjector {
 
     fun inject(weatherListViewModel: WeatherListViewModel)
-
-    fun inject(detailViewModel: DetailViewModel)
 
     @Component.Builder
     interface Builder {

@@ -13,7 +13,7 @@
 <!--  model string templates  -->
     <string name="minMinTempString">Low: %1$f \°F / High: %2$f \°F</string>
     <string name="tempString">%f \°F</string>
-    <string name="humidityString">%d \% Humidity</string>
+    <string name="humidityString">%d Humidity</string>
     <string name="windSpeedString">Wind speed: %f mph</string>
     <string name="monday">Monday</string>
     <string name="rainy">Rainy</string>

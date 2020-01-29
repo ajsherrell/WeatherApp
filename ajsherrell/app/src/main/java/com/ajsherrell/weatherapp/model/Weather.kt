@@ -1,8 +1,6 @@
 package com.ajsherrell.weatherapp.model
 
 import android.content.Context
-import android.content.res.Resources
-import com.ajsherrell.weatherapp.R
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlin.collections.List
@@ -53,35 +51,30 @@ data class Main(
     val humidity: Int?
 ) {
 
-    fun getMinMaxTemp(): String? {
-        val temp_minF = temp_min?.times(9/5)?.minus(459.67)
-        val temp_maxF = temp_max?.times(9/5)?.minus(459.67)
-        return toString(temp_minF, temp_maxF)
-    }
-
-    private fun toString(tempMin: Double?, tempMax: Double?): String? {
-        //return Resources.getSystem().getString(R.string.minMinTempString, tempMin, tempMax)
-        return context?.resources?.getString(R.string.minMinTempString, tempMin, tempMax)
-    }
-
-    fun getTemp(): String? {
-        val tempF = temp?.times(9/5)?.minus(459.67)
-        return toString(tempF)
-    }
-
-    private fun toString(temp: Double?): String? {
-        //return Resources.getSystem().getString(R.string.tempString, temp)
-        return context?.resources?.getString(R.string.tempString, temp)
-    }
-
-    fun getHumidity(): String? {
-        return toString(humidity)
-    }
-
-    private fun toString(humidity: Int?): String? {
-        //return Resources.getSystem().getString(R.string.humidityString, humidity)
-        return context?.resources?.getString(R.string.humidityString, humidity)
-    }
+//    fun getMinMaxTemp(): String? {
+//        return toString(temp_min, temp_max)
+//    }
+//
+//    private fun toString(tempMin: Double?, tempMax: Double?): String? {
+//        return context?.resources?.getString(R.string.minMinTempString, tempMin, tempMax)
+//    }
+//
+//    fun getTemp(): String? {
+//        return toString(temp)
+//    }
+//
+//    private fun toString(temp: Double?): String? {
+//        return context?.resources?.getString(R.string.tempString, temp)
+//    }
+//
+//    fun getHumidity(): String? {
+//        return toString(humidity)
+//    }
+//
+//    private fun toString(humidity: Int?): String? {
+//        //return Resources.getSystem().getString(R.string.humidityString, humidity)
+//        return context?.resources?.getString(R.string.humidityString, humidity)
+//    }
 }
 
 @JsonClass(generateAdapter = true)
@@ -97,14 +90,13 @@ data class Wind(
     val speed: Double?
 ) {
 
-    fun getWindSpeed(): String? {
-        return toString(speed)
-    }
-
-    private fun toString(speed: Double?): String? {
-        //return Resources.getSystem().getString(R.string.windSpeedString, speed)
-        return context?.resources?.getString(R.string.windSpeedString, speed)
-    }
+//    fun getWindSpeed(): String? {
+//        return toString(speed)
+//    }
+//
+//    private fun toString(speed: Double?): String? {
+//        return context?.resources?.getString(R.string.windSpeedString, speed)
+//    }
 
 }
 

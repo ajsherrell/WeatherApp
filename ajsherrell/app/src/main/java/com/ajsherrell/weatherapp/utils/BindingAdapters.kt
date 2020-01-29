@@ -2,71 +2,39 @@ package com.ajsherrell.weatherapp.utils
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
-import androidx.databinding.Observable
-import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.Observer
 import com.ajsherrell.weatherapp.R
 import com.ajsherrell.weatherapp.utils.extension.getParentActivity
-import com.bumptech.glide.Glide
-import java.util.Observer
 
-object BindingAdapters {
-
-    @BindingAdapter("imageRes")
-    @JvmStatic
-    fun setIconImage(imageView: ImageView, url: String?) {
-        if (url == null) {
-            imageView.setImageResource(R.drawable.ic_cloud_black_24dp)
-        } else {
-            Glide.with(imageView.context)
-                .load(url)
-                .into(imageView)
-        }
-    }
-
-    @BindingAdapter("imageRes")
-    @JvmStatic
-    fun setIconImage(imageView: ImageView, url: Int?) {
-        if (url == null) {
-            imageView.setImageResource(R.drawable.ic_cloud_black_24dp)
-        } else {
-            Glide.with(imageView.context)
-                .load(url)
-                .into(imageView)
-        }
-    }
-
-    @BindingAdapter("mutableVisibility")
-    @JvmStatic
-    fun setMutableVisibility(view: View, visibility: MutableLiveData<Int>?) {
-        val parentActivity: AppCompatActivity? = view.getParentActivity()
-        if(parentActivity != null && visibility != null) {
-            visibility.observe(parentActivity, androidx.lifecycle.Observer { value -> view.visibility = value?:View.VISIBLE})
-        }
-    }
-
-    @BindingAdapter("mutableText")
-    @JvmStatic
-    fun setMutableText(view: TextView, text: MutableLiveData<String>?) {
-        val parentActivity:AppCompatActivity? = view.getParentActivity()
-        if(parentActivity != null && text != null) {
-            text.observe(parentActivity, androidx.lifecycle.Observer { value -> view.text = value?:""})
-        }
-    }
-
-    @BindingAdapter("adapter")
-    @JvmStatic
-    fun setAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
-        view.adapter = adapter
-        view.setHasFixedSize(true)
+@BindingAdapter("openWeatherIcon")
+fun ImageView.setWeatherIcon(url: String?) {
+    when (url) {
+        "01d" -> setImageResource(R.drawable.ic_clear_sky)
+        "02d" -> setImageResource(R.drawable.ic_few_clouds)
+        "03d" -> setImageResource(R.drawable.ic_scattered_clouds)
+        "04d" -> setImageResource(R.drawable.ic_broken_clouds)
+        "09d" -> setImageResource(R.drawable.ic_shower_rain)
+        "10d" -> setImageResource(R.drawable.ic_rain)
+        "11d" -> setImageResource(R.drawable.ic_thunderstorm)
+        "13d" -> setImageResource(R.drawable.ic_snow)
+        "50d" -> setImageResource(R.drawable.ic_mist)
+        // weather icons : https://openweathermap.org/weather-conditions
+        else -> setImageResource(R.drawable.ic_cloud_black_24dp)
     }
 }
+
+@BindingAdapter("mutableVisibility")
+fun setMutableVisibility(view: View,  visibility: MutableLiveData<Int>?) {
+    val parentActivity: AppCompatActivity? = view.getParentActivity()
+    if(parentActivity != null && visibility != null) {
+        visibility.observe(parentActivity, Observer { value -> view.visibility = value?: View.VISIBLE})
+    }
+}
+
+
 
 
 

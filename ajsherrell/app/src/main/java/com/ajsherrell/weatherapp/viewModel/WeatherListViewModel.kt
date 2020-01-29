@@ -5,20 +5,24 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ajsherrell.weatherapp.R
+import com.ajsherrell.weatherapp.adapter.ForecastClickListener
 import com.ajsherrell.weatherapp.adapter.WeatherAdapter
 import com.ajsherrell.weatherapp.base.BaseViewModel
-import com.ajsherrell.weatherapp.model.*
+import com.ajsherrell.weatherapp.model.Response
+import com.ajsherrell.weatherapp.model.context
 import com.ajsherrell.weatherapp.network.WeatherApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class WeatherListViewModel:BaseViewModel() {
+abstract class WeatherListViewModel:BaseViewModel() {
     @Inject
     lateinit var weatherApi: WeatherApi
 
     private lateinit var subscription: Disposable
+    abstract val listener: ForecastClickListener
+    val weatherAdapter: WeatherAdapter = WeatherAdapter(listener)
 
     private val TAG: String = "WeatherListViewModel"
 
@@ -27,18 +31,51 @@ class WeatherListViewModel:BaseViewModel() {
 
     val loadingVisibility: MutableLiveData<Int?> = MutableLiveData()
 
-    val weatherAdapter: WeatherAdapter = WeatherAdapter()
-
     private var response: Response? = null
-    private var category: Category? = null
-    private var main: Main? = null
-    private var weather: Weather? = null
 
-    private val shortDescription = MutableLiveData<String?>()
-    private val masterTemp = MutableLiveData<String?>()
-    private val weatherIcon = MutableLiveData<String?>()
-    private val minMaxTemp = MutableLiveData<String?>()
-    private val day = MutableLiveData<String?>()
+    private val _shortDescription: MutableLiveData<String?> = MutableLiveData()
+    val shortDescription: LiveData<String?>
+        get() = _shortDescription
+
+    private val _masterTemp: MutableLiveData<String?> = MutableLiveData()
+    val masterTemp: LiveData<String?>
+        get() = _masterTemp
+
+    private val _minTemp: MutableLiveData<String?> = MutableLiveData()
+    val minTemp: LiveData<String?>
+        get() = _minTemp
+
+    private val _maxTemp: MutableLiveData<String?> = MutableLiveData()
+    val maxTemp: LiveData<String?>
+        get() = _maxTemp
+
+    private val weatherIcon: MutableLiveData<String?> = MutableLiveData()
+    val masterWeatherIcon :LiveData<String?>
+        get() = weatherIcon
+
+    private val _minMaxTemp: MutableLiveData<String?> = MutableLiveData()
+    val minMaxTemp: LiveData<String?>
+        get() = _minMaxTemp
+
+    private val _day: MutableLiveData<String?> = MutableLiveData()
+    val day: LiveData<String?>
+        get() = _day
+
+    private val _description: MutableLiveData<String?> = MutableLiveData()
+    val description: LiveData<String?>
+        get() = _description
+
+    private val _humidity: MutableLiveData<String?> = MutableLiveData()
+    val humidity: LiveData<String?>
+        get() = _humidity
+
+    private val _windSpeed: MutableLiveData<String?> = MutableLiveData()
+    val windSpeed: LiveData<String?>
+        get() = _windSpeed
+
+    private val _weatherForecast: MutableLiveData<Response> = MutableLiveData()
+    val weatherForecast :LiveData<Response>
+        get() = _weatherForecast
 
     init {
         loadWeather()
@@ -56,7 +93,14 @@ class WeatherListViewModel:BaseViewModel() {
             .doOnSubscribe { onRetrieveWeatherListStart() }
             .doOnTerminate { onRetrieveWeatherListFinish() }
             .subscribe(
-                { result -> onRetrieveWeatherListSuccess(result) },
+                { result ->
+                    _weatherForecast.value = result
+                    _minMaxTemp.value = context?.resources?.getString(R.string.minMinTempString, result.category[0].main.temp_min, result.category[0].main.temp_max)
+                    _shortDescription.value = result.category[0].weather[0].main
+                    weatherIcon.value = result.category[0].weather[0].icon
+                    Log.d(TAG, "loadWeather: $_shortDescription")
+                    onRetrieveWeatherListSuccess(result)
+                },
                 { e ->
                     Log.e("Subscriber", "error fetching weather: ${e.message}")
                     e.printStackTrace()
@@ -74,44 +118,12 @@ class WeatherListViewModel:BaseViewModel() {
     }
 
     private fun onRetrieveWeatherListSuccess(response: Response){
-        weatherAdapter.updateListItems(response.category)
+       weatherAdapter.updateListItems(response.category)
     }
 
     private fun onRetrieveWeatherListError(){
         errorMessage.value = R.string.errorWeather
     }
-
-    fun bind(category: Category) {
-        this.category = category
-        day.value = category.dt_txt
-        weatherIcon.value = category.weather[0].icon
-        minMaxTemp.value = category.main.getMinMaxTemp()
-
-        Log.d(TAG, "minMaxTemp: " + minMaxTemp)
-    }
-
-    fun getMasterTemp():MutableLiveData<String?> {
-        masterTemp.value = main?.getTemp()
-        return masterTemp
-    }
-
-    fun getMasterMinMaxTemp():MutableLiveData<String?> {
-        minMaxTemp.value = main?.getMinMaxTemp()
-        return minMaxTemp
-    }
-
-    fun getMasterShortDescription():MutableLiveData<String?> {
-        return shortDescription
-    }
-
-    fun getMasterWeatherIcon():MutableLiveData<String?> {
-        return weatherIcon
-    }
-
-    fun getMasterDay():MutableLiveData<String?> {
-        return day
-    }
-
 }
 
 

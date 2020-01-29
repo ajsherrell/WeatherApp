@@ -1,23 +1,25 @@
 package com.ajsherrell.weatherapp
 
-import android.content.Context
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ajsherrell.weatherapp.adapter.ForecastClickListener
+import com.ajsherrell.weatherapp.adapter.WeatherAdapter
 import com.ajsherrell.weatherapp.databinding.WeatherListFragmentBinding
+import com.ajsherrell.weatherapp.model.Response
 import com.ajsherrell.weatherapp.viewModel.WeatherListViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class WeatherListFragment : Fragment(), iListener {
+class WeatherListFragment : Fragment() {
 
-    private val weatherDetailFragment = WeatherDetailFragment()
     private var errorSnackbar: Snackbar? = null
 
     companion object {
@@ -26,7 +28,8 @@ class WeatherListFragment : Fragment(), iListener {
 
     private val TAG: String = "WeatherListFragment"
 
-    private lateinit var weatherListViewModel: WeatherListViewModel
+    private val weatherListViewModel: WeatherListViewModel by activityViewModels()
+
     private lateinit var rootView: View
     private lateinit var binding: WeatherListFragmentBinding
 
@@ -36,51 +39,60 @@ class WeatherListFragment : Fragment(), iListener {
     ): View? {
         binding = WeatherListFragmentBinding.inflate(inflater, container, false)
 
+//        weatherListViewModel = ViewModelProvider(this)[WeatherListViewModel::class.java]
+
         rootView = binding.root
-        binding.seeDetailsButton.setOnClickListener(onItemClick(0))
-        binding.recyclerListFiveDay.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        return rootView
-    }
+        binding.seeDetailsButton.setOnClickListener {
+            launchDetailFragment()
+        }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
+        binding.recyclerListFiveDay.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        weatherListViewModel = ViewModelProviders.of(this).get(WeatherListViewModel::class.java)
-
-        //error snackbar
-        weatherListViewModel.errorMessage.observe(viewLifecycleOwner, Observer {
-            errorMessage -> if(errorMessage != null) showError(errorMessage) else hideError()
+        weatherListViewModel.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
+            if (errorMessage != null) showError(errorMessage) else hideError()
         })
+
         binding.lifecycleOwner = this
         binding.viewModel = weatherListViewModel
-        Log.d(TAG, "weatherListViewModel: " + weatherListViewModel)
+
+
+        val adapter = WeatherAdapter(object : ForecastClickListener {
+            override fun onItemClicked(position: Int) {
+                // Will be launching the other fragment with this position
+                launchDetailFragment(position)
+                Log.d(javaClass.simpleName, "clicked on item $position")
+            }
+        })
+
+        weatherListViewModel.weatherForecast.observe(viewLifecycleOwner, Observer<Response> {
+            adapter.updateListItems(it.category)
+            adapter.notifyDataSetChanged()
+        })
+
+        binding.recyclerListFiveDay.adapter = adapter
+        binding.recyclerListFiveDay.setHasFixedSize(true)
+
+
+        return rootView
+    }
+    private fun launchDetailFragment(pos: Int  = 0 ) {
+        val action =
+            WeatherListFragmentDirections.actionWeatherListFragmentToWeatherDetailFragment(
+                pos
+            )
+
+        findNavController().navigate(action)
     }
 
-    private fun showError(@StringRes errorMessage:Int){
+    private fun showError(@StringRes errorMessage: Int) {
         errorSnackbar = Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_INDEFINITE)
         errorSnackbar?.setAction(R.string.retry, weatherListViewModel.errorClickListener)
         errorSnackbar?.show()
     }
 
-    private fun hideError(){
+    private fun hideError() {
         errorSnackbar?.dismiss()
     }
-
-    override fun onItemClick(position: Int): View.OnClickListener {
-        return View.OnClickListener {
-            openDetailFragment()
-        }
-    }
-
-    private fun openDetailFragment() {
-        val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(R.id.root_layout, weatherDetailFragment)
-        fragmentTransaction?.addToBackStack(null)?.commit()
-    }
-
-
 }
 
