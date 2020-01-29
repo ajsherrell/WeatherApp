@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.ajsherrell.weatherapp.viewModel.WeatherListViewModel" />
@@ -17,14 +17,15 @@
 
             <ImageView
                 android:id="@+id/detailWeatherIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="@dimen/imageMarginTop"
-                app:openWeatherIcon="@{viewModel.getMasterWeatherIcon()}"
+                android:contentDescription="@string/weather_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:openWeatherIcon="@{viewModel.masterWeatherIcon}" />
 
             <TextView
                 android:id="@+id/detailDayTextView"
@@ -112,9 +113,10 @@
 
             <ImageView
                 android:id="@+id/umbrellaImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginBottom="@dimen/umbrellaImageMarginBottom"
+                android:contentDescription="@string/weather_icon"
                 android:src="@drawable/ic_beach_access_yellow_24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/detailHumidityTextView"

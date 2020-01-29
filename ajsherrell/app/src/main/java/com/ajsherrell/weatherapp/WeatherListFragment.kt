@@ -28,7 +28,7 @@ class WeatherListFragment : Fragment() {
 
     private val TAG: String = "WeatherListFragment"
 
-    private val weatherListViewModel: WeatherListViewModel by activityViewModels()
+    private val model: WeatherListViewModel by activityViewModels()
 
     private lateinit var rootView: View
     private lateinit var binding: WeatherListFragmentBinding
@@ -39,9 +39,6 @@ class WeatherListFragment : Fragment() {
     ): View? {
         binding = WeatherListFragmentBinding.inflate(inflater, container, false)
 
-        rootView = binding.root
-        binding.lifecycleOwner = this
-        binding.viewModel = weatherListViewModel
         binding.seeDetailsButton.setOnClickListener {
             launchDetailFragment()
         }
@@ -49,7 +46,7 @@ class WeatherListFragment : Fragment() {
         binding.recyclerListFiveDay.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        weatherListViewModel.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
+        model.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
             if (errorMessage != null) showError(errorMessage) else hideError()
         })
 
@@ -61,15 +58,17 @@ class WeatherListFragment : Fragment() {
             }
         })
 
-        weatherListViewModel.weatherForecast.observe(viewLifecycleOwner, Observer<Response> {
+        model.weatherForecast.observe(viewLifecycleOwner, Observer<Response> {
             adapter.updateListItems(it.category)
             adapter.notifyDataSetChanged()
+            binding.lifecycleOwner = this
+            binding.viewModel = model
+            Log.d(TAG, "onCreateView: $it.category")
         })
 
         binding.recyclerListFiveDay.adapter = adapter
         binding.recyclerListFiveDay.setHasFixedSize(true)
-
-
+        rootView = binding.root
         return rootView
     }
 
@@ -78,13 +77,12 @@ class WeatherListFragment : Fragment() {
             WeatherListFragmentDirections.actionWeatherListFragmentToWeatherDetailFragment(
                 pos
             )
-
         findNavController().navigate(action)
     }
 
     private fun showError(@StringRes errorMessage: Int) {
         errorSnackbar = Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_INDEFINITE)
-        errorSnackbar?.setAction(R.string.retry, weatherListViewModel.errorClickListener)
+        errorSnackbar?.setAction(R.string.retry, model.errorClickListener)
         errorSnackbar?.show()
     }
 

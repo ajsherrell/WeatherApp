@@ -1,6 +1,5 @@
 package com.ajsherrell.weatherapp.viewModel
 
-import android.content.Context
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
@@ -19,8 +18,6 @@ class WeatherListViewModel : BaseViewModel() {
     lateinit var weatherApi: WeatherApi
 
     private lateinit var subscription: Disposable
-
-    val context: Context? = null
 
     private val TAG: String = "WeatherListViewModel"
 
@@ -49,10 +46,6 @@ class WeatherListViewModel : BaseViewModel() {
     private val weatherIcon: MutableLiveData<String?> = MutableLiveData()
     val masterWeatherIcon: LiveData<String?>
         get() = weatherIcon
-
-    private val _minMaxTemp: MutableLiveData<String?> = MutableLiveData()
-    val minMaxTemp: LiveData<String?>
-        get() = _minMaxTemp
 
     private val _day: MutableLiveData<String?> = MutableLiveData()
     val day: LiveData<String?>
@@ -92,14 +85,6 @@ class WeatherListViewModel : BaseViewModel() {
             .subscribe(
                 { result ->
                     _weatherForecast.value = result
-                    _minMaxTemp.value = context?.resources?.getString(
-                        R.string.minMinTempString,
-                        result.category[0].main.temp_min,
-                        result.category[0].main.temp_max
-                    )
-                    _shortDescription.value = result.category[0].weather[0].main
-                    weatherIcon.value = result.category[0].weather[0].icon
-                    Log.d(TAG, "loadWeather: $_shortDescription")
                 },
                 { e ->
                     Log.e("Subscriber", "error fetching weather: ${e.message}")

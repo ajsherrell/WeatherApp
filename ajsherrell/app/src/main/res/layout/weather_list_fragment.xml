@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.ajsherrell.weatherapp.viewModel.WeatherListViewModel" />
@@ -80,12 +80,12 @@
 
         <ImageView
             android:id="@+id/masterWeatherIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginTop="@dimen/masterWeatherIconMarginTop"
             android:layout_marginEnd="@dimen/masterWeatherIconMarginEnd"
             android:contentDescription="@string/weather_icon"
-            app:openWeatherIcon="@{viewModel.getMasterWeatherIcon()}"
+            app:openWeatherIcon="@{viewModel.masterWeatherIcon}"
             app:layout_constraintBottom_toTopOf="@+id/see_details_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.514"

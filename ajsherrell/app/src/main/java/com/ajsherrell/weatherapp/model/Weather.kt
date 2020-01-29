@@ -1,11 +1,8 @@
 package com.ajsherrell.weatherapp.model
 
-import android.content.Context
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlin.collections.List
-
-val context: Context? = null
 
 @JsonClass(generateAdapter = true)
 data class Response(

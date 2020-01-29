@@ -16,7 +16,7 @@ class WeatherDetailFragment : Fragment() {
         fun newInstance() = WeatherDetailFragment()
     }
 
-    private val weatherListViewModel: WeatherListViewModel by activityViewModels()
+    private val model: WeatherListViewModel by activityViewModels()
 
     private lateinit var mRootView: View
     private lateinit var mBinding: WeatherDetailFragmentBinding
@@ -29,7 +29,7 @@ class WeatherDetailFragment : Fragment() {
 
         mRootView = mBinding.root
         mBinding.lifecycleOwner = this
-        mBinding.viewModel = weatherListViewModel
+        mBinding.viewModel = model
         return mRootView
     }
 }
