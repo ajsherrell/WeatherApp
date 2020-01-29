@@ -20,7 +20,6 @@ class ViewHolder(
     }
 }
 
-
 class WeatherAdapter (val clickListener: ForecastClickListener): RecyclerView.Adapter<ViewHolder>() {
 
     private var category: List<Category> = listOf()
@@ -43,7 +42,6 @@ class WeatherAdapter (val clickListener: ForecastClickListener): RecyclerView.Ad
 
     fun updateListItems(categoryList: List<Category>) {
         this.category = categoryList
-        notifyDataSetChanged()
     }
 }
 

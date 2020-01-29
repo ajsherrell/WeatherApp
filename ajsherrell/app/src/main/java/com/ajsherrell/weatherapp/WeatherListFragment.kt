@@ -39,9 +39,9 @@ class WeatherListFragment : Fragment() {
     ): View? {
         binding = WeatherListFragmentBinding.inflate(inflater, container, false)
 
-//        weatherListViewModel = ViewModelProvider(this)[WeatherListViewModel::class.java]
-
         rootView = binding.root
+        binding.lifecycleOwner = this
+        binding.viewModel = weatherListViewModel
         binding.seeDetailsButton.setOnClickListener {
             launchDetailFragment()
         }
@@ -52,10 +52,6 @@ class WeatherListFragment : Fragment() {
         weatherListViewModel.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
             if (errorMessage != null) showError(errorMessage) else hideError()
         })
-
-        binding.lifecycleOwner = this
-        binding.viewModel = weatherListViewModel
-
 
         val adapter = WeatherAdapter(object : ForecastClickListener {
             override fun onItemClicked(position: Int) {
@@ -76,7 +72,8 @@ class WeatherListFragment : Fragment() {
 
         return rootView
     }
-    private fun launchDetailFragment(pos: Int  = 0 ) {
+
+    private fun launchDetailFragment(pos: Int = 0) {
         val action =
             WeatherListFragmentDirections.actionWeatherListFragmentToWeatherDetailFragment(
                 pos
