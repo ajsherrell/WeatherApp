@@ -2,9 +2,10 @@ package com.ajsherrell.weatherapp.viewModel
 
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.ajsherrell.weatherapp.R
+import com.ajsherrell.weatherapp.WeatherListFragment
+import com.ajsherrell.weatherapp.adapter.WeatherAdapter
 import com.ajsherrell.weatherapp.base.BaseViewModel
 import com.ajsherrell.weatherapp.model.Category
 import com.ajsherrell.weatherapp.model.Response
@@ -17,6 +18,8 @@ import javax.inject.Inject
 class WeatherListViewModel : BaseViewModel() {
     @Inject
     lateinit var weatherApi: WeatherApi
+
+    private lateinit var adapter: WeatherAdapter
 
     private lateinit var subscription: Disposable
 
@@ -31,6 +34,8 @@ class WeatherListViewModel : BaseViewModel() {
     private val _weatherForecast: MutableLiveData<Response> = MutableLiveData()
     val weatherForecast: LiveData<Response>
         get() = _weatherForecast
+
+    private var categoryRvList: List<Category> = listOf()
 
     private val _category: MutableLiveData<Category> = MutableLiveData()
     val category: LiveData<Category>
@@ -76,6 +81,7 @@ class WeatherListViewModel : BaseViewModel() {
     private fun onRetrieveWeatherListError() {
         errorMessage.value = R.string.errorWeather
     }
+
 }
 
 

@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.ajsherrell.weatherapp.R
 import com.ajsherrell.weatherapp.utils.extension.getParentActivity
+import com.bumptech.glide.Glide
 
 @BindingAdapter("openWeatherIcon")
 fun ImageView.setWeatherIcon(url: String?) {
@@ -34,6 +35,15 @@ fun ImageView.setWeatherIcon(url: String?) {
         // weather icons : https://openweathermap.org/weather-conditions
         else -> setImageResource(R.drawable.ic_cloud_black_24dp)
     }
+}
+
+@BindingAdapter("bindWeatherIcon")
+fun ImageView.setImageUrl(url: String?) {
+    val image = "https://openweathermap.org/img/wn/$url@2x.png"
+    Glide.with(context)
+        .load(image)
+        .error(R.drawable.ic_cloud_black_24dp)
+        .into(this)
 }
 
 @BindingAdapter("mutableVisibility")

@@ -13,7 +13,7 @@
 <!--  model string templates  -->
     <string name="minMinTempString">Low: %1$.0f \°F / High: %2$.0f \°F</string>
     <string name="tempString">%1$.0f \°F</string>
-    <string name="humidityString">%d percent humidity</string>
+    <string name="humidityString">%1$d%% Humidity</string>
     <string name="windSpeedString">Wind speed: %1$.1f mph</string>
     <string name="dayString">Today is: %1$L</string>
     <string name="monday">Monday</string>
@@ -36,4 +36,3 @@
 
 
 
-<!--    app:bindDate="@{viewModel.forecast.dt}"-->
