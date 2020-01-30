@@ -11,10 +11,11 @@
     <string name="errorWind">An error occurred while loading the wind</string>
 
 <!--  model string templates  -->
-    <string name="minMinTempString">Low: %1$f \°F / High: %2$f \°F</string>
-    <string name="tempString">%f \°F</string>
-    <string name="humidityString">%d Humidity</string>
-    <string name="windSpeedString">Wind speed: %f mph</string>
+    <string name="minMinTempString">Low: %1$.0f \°F / High: %2$.0f \°F</string>
+    <string name="tempString">%1$.0f \°F</string>
+    <string name="humidityString">%d percent humidity</string>
+    <string name="windSpeedString">Wind speed: %1$.1f mph</string>
+    <string name="dayString">Today is: %1$L</string>
     <string name="monday">Monday</string>
     <string name="rainy">Rainy</string>
     <string name="partly_sunny">Partly Sunny</string>
@@ -23,5 +24,16 @@
     <string name="humidity_32" formatted="false">Humidity 32%</string>
     <string name="wind_speed_23_mph">Wind speed 23 mph</string>
     <string name="weather_icon">Weather Icon</string>
+    <string name="listMinMaxTempTools">low 34 / high 60</string>
+    <string name="detailHumidtyTools">30% Humidity</string>
+    <string name="detailWindTools">wind speed: 22 mph</string>
+    <string name="listMainTools">Cloudy</string>
+    <string name="listLocationTools">Atlanta</string>
+    <string name="listTempTools">53 degrees</string>
+    <string name="listDayTools">Thursday</string>
 
 </resources>
+
+
+
+<!--    app:bindDate="@{viewModel.forecast.dt}"-->

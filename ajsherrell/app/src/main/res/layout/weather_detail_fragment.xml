@@ -4,135 +4,138 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="viewModel"
-            type="com.ajsherrell.weatherapp.viewModel.WeatherListViewModel" />
+            name="index"
+            type="Integer" />
+        <variable
+            name="category"
+            type="com.ajsherrell.weatherapp.model.Category" />
     </data>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".WeatherDetailFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".WeatherDetailFragment">
 
-            <ImageView
-                android:id="@+id/detailWeatherIcon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="@dimen/imageMarginTop"
-                android:contentDescription="@string/weather_icon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:openWeatherIcon="@{viewModel.masterWeatherIcon}" />
+        <ImageView
+            android:id="@+id/detailWeatherIcon"
+            android:layout_width="@dimen/detailIconWidth"
+            android:layout_height="@dimen/detailIconHeight"
+            android:layout_marginTop="@dimen/imageMarginTop"
+            android:contentDescription="@string/weather_icon"
+            android:tint="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:openWeatherIcon="@{category.weather[0].icon}" />
 
-            <TextView
-                android:id="@+id/detailDayTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/detailDayMarginTop"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailWeatherIcon"
-                android:text="@{viewModel.day}"
-                tools:text="Thursday" />
+        <TextView
+            android:id="@+id/detailDayTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detailDayMarginTop"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            app:bindDate="@{category.dt}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailWeatherIcon"
+            tools:text="Thursday" />
 
-            <TextView
-                android:id="@+id/detailLocationTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/detailLocationMarginTop"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailDayTextView"
-                android:text="@string/dunwoody"
-                tools:text="Dunwoody" />
+        <TextView
+            android:id="@+id/detailLocationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detailLocationMarginTop"
+            android:text="@string/dunwoody"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailDayTextView"
+            tools:text="Dunwoody" />
 
-            <TextView
-                android:id="@+id/detailMainTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/detailMainMarginTop"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailLocationTextView"
-                android:text="@{viewModel.shortDescription}"
-                tools:text="Cloudy" />
+        <TextView
+            android:id="@+id/detailMainTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detailMainMarginTop"
+            android:text="@{category.weather[0].main}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailLocationTextView"
+            tools:text="Cloudy" />
 
-            <TextView
-                android:id="@+id/detailDescriptionTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/descriptionHeight"
-                android:layout_marginTop="@dimen/descriptionMarginTop"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailMainTextView"
-                android:text="@{viewModel.description}"
-                tools:text="Mostly cloudy, chance of snow" />
+        <TextView
+            android:id="@+id/detailDescriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/descriptionHeight"
+            android:layout_marginTop="@dimen/descriptionMarginTop"
+            android:text="@{category.weather[0].description}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailMainTextView"
+            tools:text="Mostly cloudy, chance of snow" />
 
-            <TextView
-                android:id="@+id/detailTempTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/detailTempMarginTop"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailDescriptionTextView"
-                android:text="@{@string/tempString(viewModel.masterTemp)}"
-                tools:text="38 degrees" />
+        <TextView
+            android:id="@+id/detailTempTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detailTempMarginTop"
+            android:text="@{@string/tempString(category.main.temp)}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailDescriptionTextView"
+            tools:text="38 degrees" />
 
-            <TextView
-                android:id="@+id/detailMinMaxTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/detailMinMaxTempMarginTop"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailTempTextView"
-                android:text="@{@string/minMinTempString(viewModel.minTemp, viewModel.maxTemp)}"
-                tools:text="low 34 / high 60" />
+        <TextView
+            android:id="@+id/detailMinMaxTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detailMinMaxTempMarginTop"
+            android:text="@{@string/minMinTempString(category.main.temp_min, category.main.temp_max)}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailTempTextView"
+            tools:text="@string/low_22_f_high_67_f" />
 
-            <TextView
-                android:id="@+id/detailHumidityTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/humidityMarginBottom"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="@{@string/humidityString(viewModel.humidity)}"
-                tools:text="30% Humidity" />
+        <TextView
+            android:id="@+id/detailHumidityTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/humidityMarginBottom"
+            android:text="@{@string/humidityString(category.main.humidity)}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/detailHumidtyTools" />
 
-            <ImageView
-                android:id="@+id/umbrellaImageView"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginBottom="@dimen/umbrellaImageMarginBottom"
-                android:contentDescription="@string/weather_icon"
-                android:src="@drawable/ic_beach_access_yellow_24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/detailHumidityTextView"
-                app:layout_constraintHorizontal_bias="0.984"
-                app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/umbrellaImageView"
+            android:layout_width="@dimen/umbrellaWidth"
+            android:layout_height="@dimen/umbrellaHeight"
+            android:layout_marginBottom="@dimen/umbrellaImageMarginBottom"
+            android:contentDescription="@string/weather_icon"
+            android:src="@drawable/ic_beach_access_yellow_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/detailHumidityTextView"
+            app:layout_constraintHorizontal_bias="0.984"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/detailWindSpeedTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/detailWindSpeedMarginBottom"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintBottom_toTopOf="@+id/detailHumidityTextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="@{@string/windSpeedString(viewModel.windSpeed)}"
-                tools:text="wind speed: 22 mph" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/detailWindSpeedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/detailWindSpeedMarginBottom"
+            android:text="@{@string/windSpeedString(category.wind.speed)}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toTopOf="@+id/detailHumidityTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/detailWindTools" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

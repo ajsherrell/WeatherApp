@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ajsherrell.weatherapp.R
 import com.ajsherrell.weatherapp.base.BaseViewModel
+import com.ajsherrell.weatherapp.model.Category
 import com.ajsherrell.weatherapp.model.Response
 import com.ajsherrell.weatherapp.network.WeatherApi
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -27,45 +28,13 @@ class WeatherListViewModel : BaseViewModel() {
 
     val loadingVisibility: MutableLiveData<Int?> = MutableLiveData()
 
-    private val _shortDescription: MutableLiveData<String?> = MutableLiveData()
-    val shortDescription: LiveData<String?>
-        get() = _shortDescription
-
-    private val _masterTemp: MutableLiveData<String?> = MutableLiveData()
-    val masterTemp: LiveData<String?>
-        get() = _masterTemp
-
-    private val _minTemp: MutableLiveData<String?> = MutableLiveData()
-    val minTemp: LiveData<String?>
-        get() = _minTemp
-
-    private val _maxTemp: MutableLiveData<String?> = MutableLiveData()
-    val maxTemp: LiveData<String?>
-        get() = _maxTemp
-
-    private val weatherIcon: MutableLiveData<String?> = MutableLiveData()
-    val masterWeatherIcon: LiveData<String?>
-        get() = weatherIcon
-
-    private val _day: MutableLiveData<String?> = MutableLiveData()
-    val day: LiveData<String?>
-        get() = _day
-
-    private val _description: MutableLiveData<String?> = MutableLiveData()
-    val description: LiveData<String?>
-        get() = _description
-
-    private val _humidity: MutableLiveData<String?> = MutableLiveData()
-    val humidity: LiveData<String?>
-        get() = _humidity
-
-    private val _windSpeed: MutableLiveData<String?> = MutableLiveData()
-    val windSpeed: LiveData<String?>
-        get() = _windSpeed
-
     private val _weatherForecast: MutableLiveData<Response> = MutableLiveData()
     val weatherForecast: LiveData<Response>
         get() = _weatherForecast
+
+    private val _category: MutableLiveData<Category> = MutableLiveData()
+    val category: LiveData<Category>
+        get() = _category
 
     init {
         loadWeather()
@@ -85,6 +54,7 @@ class WeatherListViewModel : BaseViewModel() {
             .subscribe(
                 { result ->
                     _weatherForecast.value = result
+                    _category.value = result.category.first()
                 },
                 { e ->
                     Log.e("Subscriber", "error fetching weather: ${e.message}")

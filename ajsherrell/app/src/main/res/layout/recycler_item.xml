@@ -26,8 +26,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="@dimen/cardViewMarginTop"
+        android:layout_marginBottom="@dimen/cardViewMarginBottom"
         android:padding="10dp"
         app:cardBackgroundColor="@color/design_default_color_secondary"
         app:cardCornerRadius="@dimen/cardCornerRadius"
@@ -44,21 +44,22 @@
                 android:id="@+id/listDayTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{forecast.dt_txt}"
+                app:bindDate="@{forecast.dt}"
                 android:textColor="@color/colorAccent"
-                android:textSize="24sp"
+                android:textSize="@dimen/listDayTextSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Thursday" />
+                tools:text="@string/listDayTools" />
 
             <ImageView
                 android:id="@+id/rvWeatherIcon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_width="@dimen/rvIconWidth"
+                android:layout_height="@dimen/rvIconHeight"
+                android:layout_marginTop="@dimen/rvIconMarginTop"
+                android:layout_marginBottom="@dimen/rvIconMarginBotton"
                 android:contentDescription="@string/weather_icon"
+                android:tint="@color/colorAccent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,11 +72,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{@string/minMinTempString(forecast.main.temp_min, forecast.main.temp_max)}"
-                android:textSize="18sp"
+                android:textSize="@dimen/listMinMaxTempTextSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/listDayTextView"
-                tools:text="low 34 / high 60" />
+                tools:text="@string/listMinMaxTempTools" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

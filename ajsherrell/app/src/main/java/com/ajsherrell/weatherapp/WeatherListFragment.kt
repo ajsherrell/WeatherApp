@@ -61,13 +61,12 @@ class WeatherListFragment : Fragment() {
         model.weatherForecast.observe(viewLifecycleOwner, Observer<Response> {
             adapter.updateListItems(it.category)
             adapter.notifyDataSetChanged()
-            binding.lifecycleOwner = this
-            binding.viewModel = model
-            Log.d(TAG, "onCreateView: $it.category")
         })
 
         binding.recyclerListFiveDay.adapter = adapter
         binding.recyclerListFiveDay.setHasFixedSize(true)
+        binding.lifecycleOwner = this
+        binding.viewModel = model
         rootView = binding.root
         return rootView
     }

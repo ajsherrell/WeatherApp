@@ -2,6 +2,7 @@ package com.ajsherrell.weatherapp.utils
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
@@ -42,6 +43,12 @@ fun setMutableVisibility(view: View,  visibility: MutableLiveData<Int>?) {
         visibility.observe(parentActivity, Observer { value -> view.visibility = value?: View.VISIBLE})
     }
 }
+
+@BindingAdapter("bindDate")
+fun TextView.bindDate(dt:Long) {
+    text = dt.formatDate()
+}
+
 
 
 

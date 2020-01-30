@@ -27,4 +27,19 @@
     <dimen name="masterTempMarginTop">164dp</dimen>
     <dimen name="masterMinMaxMarginStart">16dp</dimen>
     <dimen name="masterMinMaxMarginTop">8dp</dimen>
+    <dimen name="cardViewMarginTop">8dp</dimen>
+    <dimen name="cardViewMarginBottom">8dp</dimen>
+    <dimen name="listDayTextSize">24sp</dimen>
+    <dimen name="rvIconWidth">48dp</dimen>
+    <dimen name="rvIconHeight">48dp</dimen>
+    <dimen name="rvIconMarginTop">16dp</dimen>
+    <dimen name="rvIconMarginBotton">16dp</dimen>
+    <dimen name="listMinMaxTempTextSize">18sp</dimen>
+    <dimen name="detailIconWidth">64dp</dimen>
+    <dimen name="detailIconHeight">64dp</dimen>
+    <dimen name="umbrellaWidth">48dp</dimen>
+    <dimen name="umbrellaHeight">48dp</dimen>
+    <dimen name="detailButtonMarginBottom">24dp</dimen>
+    <dimen name="listIconWidth">64dp</dimen>
+    <dimen name="listIconHeight">64dp</dimen>
 </resources>
