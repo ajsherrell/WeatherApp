@@ -4,13 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.ajsherrell.weatherapp.viewModel.WeatherListViewModel" />
-        <variable
-            name="forecast"
-            type="com.ajsherrell.weatherapp.model.Category" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
