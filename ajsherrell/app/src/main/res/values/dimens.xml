@@ -42,4 +42,6 @@
     <dimen name="detailButtonMarginBottom">24dp</dimen>
     <dimen name="listIconWidth">200dp</dimen>
     <dimen name="listIconHeight">200dp</dimen>
+    <dimen name="margin8">8dp</dimen>
+    <dimen name="margin16">16dp</dimen>
 </resources>
