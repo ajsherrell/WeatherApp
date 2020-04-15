@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ajsherrell.weatherapp.viewModel.WeatherListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/listConstraintlLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_blue_bright"
+        tools:context=".WeatherListFragment">
+
+        <Button
+            android:id="@+id/see_details_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/detailButtonMarginBottom"
+            android:background="@drawable/ic_chevron_right_black_24dp"
+            android:backgroundTint="@color/design_default_color_background"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/masterMainTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/masterMainMarginTop"
+            android:text="@{viewModel.category.weather[0].main}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textColor="@color/design_default_color_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/listMainTools" />
+
+        <TextView
+            android:id="@+id/masterLocationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/masterLocationMarginTop"
+            android:text="@string/dunwoody"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/design_default_color_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/masterMainTextView"
+            tools:text="@string/listLocationTools" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:mutableVisibility="@{viewModel.loadingVisibility}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_list_five_day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/recyclerViewMarginTop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            tools:listitem="@layout/recycler_item" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="@dimen/guidelineBegin" />
+
+        <ImageView
+            android:id="@+id/masterWeatherIcon"
+            android:layout_width="@dimen/listIconWidth"
+            android:layout_height="@dimen/listIconHeight"
+            android:layout_marginTop="@dimen/masterWeatherIconMarginTop"
+            android:layout_marginEnd="@dimen/masterWeatherIconMarginEnd"
+            android:contentDescription="@string/weather_icon"
+            app:bindWeatherIcon="@{viewModel.category.weather[0].icon}"
+            app:layout_constraintBottom_toTopOf="@+id/see_details_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.514"
+            app:layout_constraintStart_toEndOf="@+id/masterLocationTextView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.083" />
+
+        <TextView
+            android:id="@+id/masterTempTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/masterTempMarginStart"
+            android:layout_marginTop="@dimen/masterTempMarginTop"
+            android:text="@{@string/tempString(viewModel.category.main.temp)}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/design_default_color_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/listTempTools" />
+
+        <TextView
+            android:id="@+id/masterMinMaxTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/masterMinMaxMarginStart"
+            android:layout_marginTop="@dimen/masterMinMaxMarginTop"
+            android:text="@{@string/minMinTempString(viewModel.category.main.temp_min, viewModel.category.main.temp_max)}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/design_default_color_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/masterTempTextView"
+            tools:text="@string/low_22_f_high_67_f" />
+
+        <TextView
+            android:id="@+id/masterDayTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/design_default_color_background"
+            app:bindDate="@{viewModel.category.dt}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toStartOf="@+id/see_details_button"
+            app:layout_constraintHorizontal_bias="0.095"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/masterMinMaxTextView"
+            app:layout_constraintVertical_bias="0.714"
+            tools:text="@string/listDayTools" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

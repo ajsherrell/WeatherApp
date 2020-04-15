@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="see_details">Details</string>
+    <string name="dunwoody">Dunwoody</string>
+
+<!--  error strings -->
+    <string name="retry">Retry</string>
+    <string name="errorWeather">An error occurred while loading the weather</string>
+    <string name="errorMain">An error occurred while loading the main</string>
+    <string name="errorList">An error occurred while loading the list</string>
+    <string name="errorWind">An error occurred while loading the wind</string>
+
+<!--  model string templates  -->
+    <string name="minMinTempString">Low: %1$.0f \°F / High: %2$.0f \°F</string>
+    <string name="tempString">%1$.0f \°F</string>
+    <string name="humidityString">%1$d%% Humidity</string>
+    <string name="windSpeedString">Wind speed: %1$.1f mph</string>
+    <string name="dayString">Today is: %1$L</string>
+    <string name="monday">Monday</string>
+    <string name="rainy">Rainy</string>
+    <string name="partly_sunny">Partly Sunny</string>
+    <string name="_55_degrees" formatted="false">55 \°F</string>
+    <string name="low_22_f_high_67_f" formatted="false">Low: 22 \°F / High 67 \°F</string>
+    <string name="humidity_32" formatted="false">Humidity 32%</string>
+    <string name="wind_speed_23_mph">Wind speed 23 mph</string>
+    <string name="weather_icon">Weather Icon</string>
+    <string name="listMinMaxTempTools">low 34 / high 60</string>
+    <string name="detailHumidtyTools">30% Humidity</string>
+    <string name="detailWindTools">wind speed: 22 mph</string>
+    <string name="listMainTools">Cloudy</string>
+    <string name="listLocationTools">Atlanta</string>
+    <string name="listTempTools">53 degrees</string>
+    <string name="listDayTools">Thursday</string>
+
+</resources>
+
+
+

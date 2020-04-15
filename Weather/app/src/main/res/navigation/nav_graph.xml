@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/weatherListFragment">
+
+    <fragment
+        android:id="@+id/weatherListFragment"
+        android:name="com.ajsherrell.weatherapp.WeatherListFragment"
+        tools:layout="@layout/weather_list_fragment"
+        android:label="WeatherListFragment">
+        <action
+            android:id="@+id/action_weatherListFragment_to_weatherDetailFragment"
+            app:destination="@id/weatherDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weatherDetailFragment"
+        android:name="com.ajsherrell.weatherapp.WeatherDetailFragment"
+        tools:layout="@layout/weather_detail_fragment"
+        android:label="WeatherDetailFragment" >
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+</navigation>
