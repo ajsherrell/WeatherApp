@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="model"
+            type="com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel" />
+        <variable
+            name="category"
+            type="com.ajsherrell.android.quiz_hyperbaric.model.Category" />
+        <variable
+            name="onRecyclerViewItemClick"
+            type="com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener" />
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <Button
+            android:id="@+id/list_button"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:onClick="@{() -> onRecyclerViewItemClick.onItemClicked(position)}"
+            android:text="@{category.title}"
+            tools:text="@string/category" />
+
+    </FrameLayout>
+
+</layout>
